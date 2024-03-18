@@ -3,12 +3,16 @@
 </script>
 
 <template>
-<footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top bg-dark">
+<footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top bg-dark position-relative">
+    <div class="hr-content d-flex justify-content-center position-absolute p-0 w-100">
+      <hr class="">
+    </div>
+    
     <div class="col mb-3">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
         <img src="https://dhhvideos.s3.eu-central-1.amazonaws.com/Delivery-Hero-Comet.png" alt="">
       </a>
-      <p class="text-muted">© 2022</p>
+      <p class="">© 2022</p>
     </div>
 
     <div class="col mb-3">
@@ -18,47 +22,66 @@
     <div class="col mb-3">
       <h5>Section</h5>
       <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Home</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Features</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">FAQs</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">About</a></li>
       </ul>
     </div>
 
     <div class="col mb-3">
       <h5>Section</h5>
       <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Home</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Features</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">FAQs</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">About</a></li>
       </ul>
     </div>
 
     <div class="col mb-3">
       <h5>Section</h5>
       <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Home</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Features</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">FAQs</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">About</a></li>
       </ul>
     </div>
   </footer>
 </template>
 
 <style lang="scss" scoped>
-*{
-  color: white!important;
-}
+
 footer{
-    padding: 15px;
+    padding: 60px 0!important;
+    margin: 0!important;
+
+    .hr-content{
+      top: 8%;
+      hr{
+        width: 90%;
+        border: 1.7px solid rgb(255, 193, 61);
+      }
+    }
+
+    
+
+    *{
+      color: rgb(255, 193, 61);
+    }
 
     img{
         width: 60px;
+    }
+
+    h5{
+      font-size: 1.5em;
+      color:rgb(216, 33, 40);
+      margin-bottom: 15px;
     }
 }
     
