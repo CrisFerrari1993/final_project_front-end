@@ -39,7 +39,7 @@ export default {
               {{ restaurant.name }}
             </h6>
             <p>{{ restaurant.adress }}</p>
-            <img src="" alt="{{restaurant.name}}" />
+            <img :src="restaurant.wallpaper" :alt="restaurant.name" />
           </div>
         </div>
       </div>
