@@ -16,4 +16,6 @@ export default {
   <AppFooter />
 </template>
 
-<style></style>
+<style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
+</style>
