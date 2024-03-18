@@ -1,5 +1,13 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue';
+<script>
+import AppNabar from './components/AppNavbar.vue';
+import AppFooter from './components/AppNavbar.vue';
+
+export default {
+  components: {
+    AppNabar,
+    AppFooter,
+  },
+};
 </script>
 
 <template>
