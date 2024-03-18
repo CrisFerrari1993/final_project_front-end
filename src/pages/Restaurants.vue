@@ -20,6 +20,11 @@ export default {
         console.log(err);
       });
   },
+  methods: {
+    getImageUrl(logo) {
+      return `http://127.0.0.1:8000/storage/${logo}`;
+    }
+  }
 };
 </script>
 
@@ -39,7 +44,7 @@ export default {
               {{ restaurant.name }}
             </h6>
             <p>{{ restaurant.adress }}</p>
-            <img :src="restaurant.wallpaper" :alt="restaurant.name" />
+            <img :src="getImageUrl(restaurant.logo)" :alt="restaurant.name" />
           </div>
         </div>
       </div>
