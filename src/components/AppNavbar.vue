@@ -1,5 +1,13 @@
-<script></script>
+<script>
+export default {
+  name: 'AppNabar',
+};
+</script>
 
-<template></template>
+<template>
+  <h1>Navbar</h1>
+</template>
 
-<style></style>
+<style lang="scss">
+@import '../styles/general.scss';
+</style>
