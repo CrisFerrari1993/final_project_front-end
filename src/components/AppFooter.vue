@@ -8,7 +8,7 @@
       <hr class="">
     </div>
     
-    <div class="col mb-3">
+    <div class="col mb-3 d-flex flex-column align-items-center">
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
         <img src="https://dhhvideos.s3.eu-central-1.amazonaws.com/Delivery-Hero-Comet.png" alt="">
       </a>
