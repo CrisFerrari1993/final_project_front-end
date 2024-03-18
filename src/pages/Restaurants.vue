@@ -23,8 +23,11 @@ export default {
   methods: {
     getImageUrl(logo) {
       return `http://127.0.0.1:8000/storage/${logo}`;
-    }
-  }
+    },
+    getLinkId(restaurant) {
+      console.log('Hai cliccato il link numero: ', restaurant.id);
+    },
+  },
 };
 </script>
 
@@ -37,19 +40,47 @@ export default {
       <div class="row">
         <div
           v-for="restaurant in restaurants"
-          class="col-sm-12 col-md-4 col-xl-3 p-2"
+          :key="restaurant.id"
+          class="col-sm-12 col-md-4 col-xl-3 px-2 py-3"
+          @clik="getLinkId()"
         >
-          <div class="container">
-            <h6 class="madimi-one-regular text-center">
-              {{ restaurant.name }}
-            </h6>
-            <p>{{ restaurant.adress }}</p>
-            <img :src="getImageUrl(restaurant.logo)" :alt="restaurant.name" />
-          </div>
+          <a class="card_link" href="#">
+            <div class="container resturant_card">
+              <img
+                class="card-img-top"
+                :src="getImageUrl(restaurant.logo)"
+                :alt="restaurant.name"
+              />
+              <div class="card-body">
+                <h5 class="madimi-one-regular text-center mt-2">
+                  {{ restaurant.name }}
+                </h5>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </div>
   </section>
 </template>
 
-<style></style>
+<style>
+.resturant_card {
+  border: 1px solid rgb(237, 237, 237);
+  border-radius: 5px;
+  box-shadow: 10px 5px 5px rgb(241, 241, 241);
+  transition: 100ms;
+  &:hover {
+    box-shadow: 10px 5px 5px rgb(188, 188, 188);
+  }
+  img {
+    height: 300px;
+    object-fit: contain;
+    object-position: center;
+  }
+}
+.card_link {
+  color: black;
+  text-decoration: none;
+}
+</style>

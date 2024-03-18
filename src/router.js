@@ -4,6 +4,7 @@ import PageHome from './pages/PageHome.vue';
 import OurTeam from './pages/OurTeam.vue';
 import NotFound from './pages/NotFound.vue';
 import Restaurants from './pages/Restaurants.vue';
+import PageRestaurantDetails from './pages/PageRestaurantDetails.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/ristoranti',
       name: 'Restaurants',
       component: Restaurants,
+    },
+    {
+      path: '/ristorante_',
+      name: 'Details',
+      component: PageRestaurantDetails,
     },
   ],
 });

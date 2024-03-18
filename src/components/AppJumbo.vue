@@ -17,19 +17,11 @@ export default {
           <h1 class="madimi-one-regular text-danger mb-5">
             <strong>Consegnamo a domicilio il tuo cibo preferito!</strong>
           </h1>
-          <h5 class="madimi-one-regular">
+          <h5 class="madimi-one-regular my-5">
             Pizza, hamburger, poke e tanto altro dal ristorante al salotto di
-            casa tua!
+            casa tua! DeliveBoo seleziona per voi i migliori ristoranti e li
+            porta a casa nell'arco di 30 minuti!
           </h5>
-          <form class="d-flex">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="🔍 Cerca per categoria"
-              aria-label="Cerca"
-            />
-            <button class="btn btn-outline-danger" type="submit">Cerca</button>
-          </form>
         </div>
       </div>
     </div>
