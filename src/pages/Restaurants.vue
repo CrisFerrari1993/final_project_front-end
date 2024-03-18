@@ -1,11 +1,18 @@
 <script>
 import axios from 'axios';
+import {store} from '../store';
+import PageRestaurantDetails from './PageRestaurantDetails.vue';
 
 export default {
   name: 'Restaurants',
+  components:{
+    PageRestaurantDetails,
+  },
   data() {
     return {
       restaurants: [],
+      idRestaurant:"",
+      ref: false,
     };
   },
   mounted() {
@@ -24,27 +31,35 @@ export default {
     getImageUrl(logo) {
       return `http://127.0.0.1:8000/storage/${logo}`;
     },
-    getLinkId(restaurant) {
-      console.log('Hai cliccato il link numero: ', restaurant.id);
+    getLinkId(restaurants) {
+      console.log(this.restaurants.id);
     },
+    getMyRest(id){
+      this.idRestaurant = id;
+      this.ref = !this.ref;
+    }
   },
 };
 </script>
 
 <template>
   <section>
+
     <h1 class="madimi-one-regular mt-5 mb-5 text-center">
       Ristoranti vicino a te
     </h1>
-    <div class="container px-2">
+
+    <PageRestaurantDetails v-if="ref" :id="idRestaurant"/>
+
+    <div class="container px-2" v-else>
       <div class="row">
         <div
           v-for="restaurant in restaurants"
           :key="restaurant.id"
           class="col-sm-12 col-md-4 col-xl-3 px-2 py-3"
-          @clik="getLinkId()"
+          @click="getLinkId()"
         >
-          <a class="card_link" href="#">
+          <div class="card_link" @click="getMyRest(restaurant.id)">
             <div class="container resturant_card">
               <img
                 class="card-img-top"
@@ -57,7 +72,7 @@ export default {
                 </h5>
               </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
