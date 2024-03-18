@@ -12,6 +12,9 @@ export default {
     return {
       restaurants: [],
       idRestaurant:"",
+      nameRestaurant: "",
+      addressRestaurant: "",
+      logoRestaurant: "",
       ref: false,
     };
   },
@@ -34,8 +37,11 @@ export default {
     getLinkId(restaurants) {
       console.log(this.restaurants.id);
     },
-    getMyRest(id){
+    getMyRest(id, name, address, logo){
       this.idRestaurant = id;
+      this.nameRestaurant = name;
+      this.addressRestaurant = address;
+      this.logoRestaurant = logo;
       this.ref = !this.ref;
     }
   },
@@ -49,7 +55,7 @@ export default {
       Ristoranti vicino a te
     </h1>
 
-    <PageRestaurantDetails v-if="ref" :id="idRestaurant"/>
+    <PageRestaurantDetails v-if="ref" :id="idRestaurant" :name="nameRestaurant" :address="addressRestaurant" :logo="getImageUrl(logoRestaurant)"/>
 
     <div class="container px-2" v-else>
       <div class="row">
@@ -59,7 +65,7 @@ export default {
           class="col-sm-12 col-md-4 col-xl-3 px-2 py-3"
           @click="getLinkId()"
         >
-          <div class="card_link" @click="getMyRest(restaurant.id)">
+          <div class="card_link" @click="getMyRest(restaurant.id, restaurant.name, restaurant.adress, restaurant.logo)">
             <div class="container resturant_card">
               <img
                 class="card-img-top"
