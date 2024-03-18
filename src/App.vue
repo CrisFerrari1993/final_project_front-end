@@ -1,18 +1,18 @@
 <script>
-import AppNabar from './components/AppNavbar.vue';
-import AppFooter from './components/AppNavbar.vue';
+import AppNavbar from './components/AppNavbar.vue';
+import AppFooter from './components/AppFooter.vue';
 
 export default {
   components: {
-    AppNabar,
+    AppNavbar,
     AppFooter,
   },
 };
 </script>
 
 <template>
-  <AppFooter />
   <AppNavbar />
+  <AppFooter />
 </template>
 
 <style></style>
