@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-  <h1>Restaurants</h1>
+  <h1 class="madimi-one-regular">Restaurants</h1>
 </template>
 
 <style></style>
