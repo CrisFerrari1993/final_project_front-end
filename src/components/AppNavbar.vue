@@ -48,15 +48,6 @@ export default {
             </ul>
           </li>
         </ul>
-        <form class="d-flex">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="🔍 Cerca per categoria"
-            aria-label="Cerca"
-          />
-          <button class="btn btn-outline-danger" type="submit">Cerca</button>
-        </form>
       </div>
     </div>
   </nav>

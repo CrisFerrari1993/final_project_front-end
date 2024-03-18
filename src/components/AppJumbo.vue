@@ -21,6 +21,15 @@ export default {
             Pizza, hamburger, poke e tanto altro dal ristorante al salotto di
             casa tua!
           </h5>
+          <form class="d-flex">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="🔍 Cerca per categoria"
+              aria-label="Cerca"
+            />
+            <button class="btn btn-outline-danger" type="submit">Cerca</button>
+          </form>
         </div>
       </div>
     </div>
