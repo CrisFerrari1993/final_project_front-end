@@ -12,7 +12,13 @@
       <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
         <img src="https://dhhvideos.s3.eu-central-1.amazonaws.com/Delivery-Hero-Comet.png" alt="">
       </a>
-      <p class="">© 2022</p>
+      <p class="">© 2024</p>
+      <span class="mb-3">Prod By</span>
+      <a href="https://www.linkedin.com/in/fabbri-rebecchi/" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i> Francesco</a>
+      <a href="https://www.linkedin.com/in/jacopo-biagi-97a98a2b8/" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i> Jacopo</a>
+      <a href="https://www.linkedin.com/in/sergio-buzi-91b7ab223/" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i> Sergio</a>
+      <a href="https://www.linkedin.com/in/cristopher-ferrari-648944197/" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i> Cristopher</a>
+      <a href="https://www.linkedin.com/in/alissa-cavallera-961887178/" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i> Alissa</a>
     </div>
 
     <!-- <div class="col mb-3">
