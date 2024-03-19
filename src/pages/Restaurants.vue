@@ -22,8 +22,8 @@ export default {
     axios
       .get('http://localhost:8000/api/restaurants')
       .then(res => {
-        const data = res.data;
-        this.restaurants = data.restaurants;
+        const data = res.data.results;
+        this.restaurants = data;
         console.log(data);
       })
       .catch(err => {
