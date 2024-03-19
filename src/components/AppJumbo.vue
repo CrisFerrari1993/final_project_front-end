@@ -27,11 +27,21 @@ export default {
     </div>
   </section>
 </template>
-<style>
+
+<style lang="scss">
 .jumbotron {
   background-color: #ffce6b;
   img {
     max-width: 100%;
   }
 }
+
+@media (max-width: 767px){
+.jumbotronè{
+  img{
+    display: none;
+  }
+}
+}
+
 </style>
