@@ -43,8 +43,16 @@ export default {
               Per i ristoratori
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Registrati</a></li>
-              <li><a class="dropdown-item" href="#">Entra</a></li>
+              <li>
+                <a class="dropdown-item" href="http://localhost:8000/register"
+                  >Registrati</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="http://localhost:8000/login"
+                  >Entra</a
+                >
+              </li>
             </ul>
           </li>
         </ul>
