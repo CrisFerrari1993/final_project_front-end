@@ -13,7 +13,7 @@
         <img src="https://dhhvideos.s3.eu-central-1.amazonaws.com/Delivery-Hero-Comet.png" alt="">
       </a>
       <p class="">© 2024</p>
-      <span class="mb-3">Prod By</span>
+      <span class="mb-3">Prodotto da</span>
       <a href="https://www.linkedin.com/in/fabbri-rebecchi/" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i> Francesco</a>
       <a href="https://www.linkedin.com/in/jacopo-biagi-97a98a2b8/" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i> Jacopo</a>
       <a href="https://www.linkedin.com/in/sergio-buzi-91b7ab223/" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i> Sergio</a>
@@ -26,22 +26,22 @@
     </div> -->
 
     <div class="col mb-3">
-      <h5>Section</h5>
+      <h5>Sezione</h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Home</a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Prezzi</a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">FAQs</a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">About</a></li>
       </ul>
     </div>
 
     <div class="col mb-3">
-      <h5>Section</h5>
+      <h5>Sezione</h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Home</a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">Prezzi</a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">FAQs</a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 ">About</a></li>
       </ul>
@@ -52,7 +52,7 @@
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Home</a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Features</a></li>
-        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Pricing</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0">Prezzi</a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0">FAQs</a></li>
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0">About</a></li>
       </ul>
