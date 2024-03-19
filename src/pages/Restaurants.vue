@@ -20,7 +20,7 @@ export default {
   },
   mounted() {
     axios
-      .get('http://localhost:8000/api/v1/restaurants')
+      .get('http://localhost:8000/api/restaurants')
       .then(res => {
         const data = res.data;
         this.restaurants = data.restaurants;
