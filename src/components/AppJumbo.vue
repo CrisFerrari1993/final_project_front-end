@@ -37,7 +37,7 @@ export default {
 }
 
 @media (max-width: 767px){
-.jumbotronè{
+.jumbotron{
   img{
     display: none;
   }
