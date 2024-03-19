@@ -10,7 +10,12 @@
           class="col-sm-3 col-md-3 col-xl-2 p-1"
         >
           <label :for="category.name" />{{ category.name }}
-          <input type="checkbox" :id="category.id" :name="category.name" />
+          <input
+            type="checkbox"
+            :id="category.id"
+            :name="category.name"
+            :value="category.id"
+          />
         </div>
       </div>
     </div>
@@ -57,6 +62,7 @@ export default {
   name: 'AppContent',
   data() {
     return {
+      selectedCategories: [],
       restaurants: [],
       categories: [],
     };
@@ -74,6 +80,9 @@ export default {
       this.addressRestaurant = address;
       this.logoRestaurant = logo;
       this.ref = !this.ref;
+    },
+    fillCategoryArray(category) {
+      this.selectedCategories.push(category.id);
     },
   },
   mounted() {
