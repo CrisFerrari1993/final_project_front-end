@@ -92,11 +92,14 @@ export default {
   },
   computed: {
     filteredRestaurants() {
+      console.log(this.restaurants)
       if (this.selectedCategories.length === 0) {
         return this.restaurants;
       } else {
         return this.restaurants.filter(restaurant => {
-          return this.selectedCategories.includes(restaurant.category_id);
+          return restaurant.categories.some(category => {
+            return this.selectedCategories.includes(category.id);
+          });
         });
       }
     },
