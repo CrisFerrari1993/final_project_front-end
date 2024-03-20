@@ -7,6 +7,14 @@
           v-for="category in categories"
           :key="category.id"
           class="col-sm-3 col-md-3 col-xl-2 p-1 p-2"
+          @click="
+            getMyRest(
+              restaurant.id,
+              restaurant.name,
+              restaurant.adress,
+              restaurant.logo
+            )
+          "
         >
           <div class="d-flex justify-content-center align-items-center">
             <h4 class="madimi-one-regular m-0">
@@ -61,6 +69,7 @@ export default {
       restaurants: [],
       categories: [],
       selectedCategories: [],
+      ref: false,
     };
   },
   methods: {
@@ -73,6 +82,8 @@ export default {
       this.addressRestaurant = restaurant.address;
       this.logoRestaurant = restaurant.logo;
       this.ref = !this.ref;
+      console.log('hai cliccato', restaurant.id);
+      console.log(this.ref);
     },
     fetchCategoriesAndRestaurants() {
       axios
@@ -84,8 +95,6 @@ export default {
           axios.spread((categoriesRes, restaurantsRes) => {
             this.categories = categoriesRes.data.results;
             this.restaurants = restaurantsRes.data.results;
-            console.log('Categories:', this.categories);
-            console.log('Restaurants:', this.restaurants);
           })
         )
         .catch(err => {
@@ -95,7 +104,6 @@ export default {
   },
   computed: {
     filteredRestaurants() {
-      console.log(this.restaurants);
       if (this.selectedCategories.length === 0) {
         return this.restaurants;
       } else {

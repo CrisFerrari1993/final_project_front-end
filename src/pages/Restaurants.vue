@@ -1,20 +1,20 @@
 <script>
 import axios from 'axios';
-import {store} from '../store';
+import { store } from '../store';
 import PageRestaurantDetails from './PageRestaurantDetails.vue';
 
 export default {
   name: 'Restaurants',
-  components:{
+  components: {
     PageRestaurantDetails,
   },
   data() {
     return {
       restaurants: [],
-      idRestaurant:"",
-      nameRestaurant: "",
-      addressRestaurant: "",
-      logoRestaurant: "",
+      idRestaurant: '',
+      nameRestaurant: '',
+      addressRestaurant: '',
+      logoRestaurant: '',
       ref: false,
     };
   },
@@ -34,28 +34,30 @@ export default {
     getImageUrl(logo) {
       return `http://127.0.0.1:8000/storage/${logo}`;
     },
-    getLinkId(restaurants) {
-      console.log(this.restaurants.id);
-    },
-    getMyRest(id, name, address, logo){
+    getMyRest(id, name, address, logo) {
       this.idRestaurant = id;
       this.nameRestaurant = name;
       this.addressRestaurant = address;
       this.logoRestaurant = logo;
       this.ref = !this.ref;
-    }
+    },
   },
 };
 </script>
 
 <template>
   <section>
-
     <h1 class="madimi-one-regular mt-5 mb-5 text-center">
       Ristoranti vicino a te
     </h1>
 
-    <PageRestaurantDetails v-if="ref" :id="idRestaurant" :name="nameRestaurant" :address="addressRestaurant" :logo="getImageUrl(logoRestaurant)"/>
+    <PageRestaurantDetails
+      v-if="ref"
+      :id="idRestaurant"
+      :name="nameRestaurant"
+      :address="addressRestaurant"
+      :logo="getImageUrl(logoRestaurant)"
+    />
 
     <div class="container px-2" v-else>
       <div class="row">
@@ -65,7 +67,17 @@ export default {
           class="col-sm-12 col-md-4 col-xl-3 px-2 py-3"
           @click="getLinkId()"
         >
-          <div class="card_link" @click="getMyRest(restaurant.id, restaurant.name, restaurant.adress, restaurant.logo)">
+          <div
+            class="card_link"
+            @click="
+              getMyRest(
+                restaurant.id,
+                restaurant.name,
+                restaurant.adress,
+                restaurant.logo
+              )
+            "
+          >
             <div class="container resturant_card">
               <img
                 class="card-img-top"
