@@ -39,7 +39,7 @@
           class="col-sm-12 col-md-4 col-xl-3 px-2 py-3"
           @click="getMyRest(restaurant)"
         >
-          <a href="/restaurant/detail">
+          <a href="/:restaurant.id/details">
             <div class="card_link">
               <div class="container resturant_card">
                 <img

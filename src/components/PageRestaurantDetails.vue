@@ -13,21 +13,21 @@ export default {
   data() {
     return {
       store,
-      arrDish:[],
+      arrDish: [],
     };
   },
-  mounted(){
-    const t = this
+  mounted() {
+    const t = this;
     axios
       .get(`http://localhost:8000/api/restaurants/${t.id}/dishes`, {
         params: {
           idRest: this.id,
-        }
+        },
       })
       .then(res => {
         t.arrDish = res.data.results;
         console.log(t.arrDish);
-      })
+      });
   },
 };
 </script>
@@ -55,7 +55,11 @@ export default {
   </div>
 
   <div class="w-100 row justify-content-center">
-    <div class="card col-12 col-sm-5 col-md-3" style="width: 18rem" v-for="eleDish in arrDish">
+    <div
+      class="card col-12 col-sm-5 col-md-3"
+      style="width: 18rem"
+      v-for="eleDish in arrDish"
+    >
       <img
         src="https://www.pugliainesclusiva.it/puglia/wp-content/uploads/2015/02/spaghetti-allo-scoglio-1.jpg"
         class="card-img-top"

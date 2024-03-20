@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import PageHome from './pages/PageHome.vue';
 import OurTeam from './pages/OurTeam.vue';
 import NotFound from './pages/NotFound.vue';
-import PageRestaurantDetail from './components/PageRestaurantDetails.vue';
+import PageRestaurantDetails from './components/PageRestaurantDetails.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -19,9 +19,9 @@ const router = createRouter({
       component: NotFound,
     },
     {
-      path: `/restaurant/detail`,
+      path: `/:restaurant.id/details`,
       name: 'details',
-      component: PageRestaurantDetail,
+      component: PageRestaurantDetails,
     },
   ],
 });
