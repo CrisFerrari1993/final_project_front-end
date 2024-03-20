@@ -39,20 +39,22 @@
           class="col-sm-12 col-md-4 col-xl-3 px-2 py-3"
           @click="getMyRest(restaurant)"
         >
-          <div class="card_link">
-            <div class="container resturant_card">
-              <img
-                class="card-img-top"
-                :src="getImageUrl(restaurant.logo)"
-                :alt="restaurant.name"
-              />
-              <div class="card-body">
-                <h5 class="madimi-one-regular text-center mt-2">
-                  {{ restaurant.name }}
-                </h5>
+          <a href="/restaurant/detail">
+            <div class="card_link">
+              <div class="container resturant_card">
+                <img
+                  class="card-img-top"
+                  :src="getImageUrl(restaurant.logo)"
+                  :alt="restaurant.name"
+                />
+                <div class="card-body">
+                  <h5 class="madimi-one-regular text-center mt-2">
+                    {{ restaurant.name }}
+                  </h5>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
