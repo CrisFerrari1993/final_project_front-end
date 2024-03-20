@@ -6,7 +6,8 @@ export default {
 <template>
   <!-- Sezione jumbotron per un impatto visivo forte -->
   <section class="jumbotron">
-    <div class="container p-5"> <!-- Container con padding per distanziare il contenuto dai bordi -->
+    <div class="container p-5">
+      <!-- Container con padding per distanziare il contenuto dai bordi -->
       <div class="row">
         <!-- Colonna immagine -->
         <div class="container p-5 col-sm-12 col-xl-6">
@@ -23,7 +24,7 @@ export default {
             <strong>Consegnamo a domicilio il tuo cibo preferito!</strong>
           </h1>
           <!-- Testo descrittivo -->
-          <h5 class="madimi-one-regular my-5">
+          <h5 class="my-5">
             Pizza, hamburger, poke e tanto altro dal ristorante al salotto di
             casa tua! DeliveBoo seleziona per voi i migliori ristoranti e li
             porta a casa nell'arco di 30 minuti!
@@ -42,12 +43,11 @@ export default {
   }
 }
 
-@media (max-width: 767px){
-.jumbotron{
-  img{
-    display: none;
+@media (max-width: 767px) {
+  .jumbotron {
+    img {
+      display: none;
+    }
   }
 }
-}
-
 </style>

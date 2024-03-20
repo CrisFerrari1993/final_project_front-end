@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-gold pt-5">
+  <section class="bg-gold">
     <PageRestaurantDetails
       v-if="ref"
       :id="idRestaurant"

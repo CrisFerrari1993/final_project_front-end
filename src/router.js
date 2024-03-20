@@ -4,6 +4,7 @@ import PageHome from './pages/PageHome.vue';
 import OurTeam from './pages/OurTeam.vue';
 import NotFound from './pages/NotFound.vue';
 import PageRestaurantDetails from './components/PageRestaurantDetails.vue';
+import AppCheckout from './components/AppCheckout.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -22,6 +23,11 @@ const router = createRouter({
       path: `/:restaurant.id/details`,
       name: 'details',
       component: PageRestaurantDetails,
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: AppCheckout,
     },
   ],
 });
