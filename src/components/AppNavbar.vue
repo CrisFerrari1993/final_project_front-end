@@ -1,3 +1,4 @@
+
 <script>
 export default {
   name: 'AppNabar',
@@ -5,16 +6,19 @@ export default {
 </script>
 
 <template>
+  <!-- Barra di navigazione principale -->
   <nav class="navbar navbar-expand-lg bg-yellow navBar">
     <div class="container-fluid">
+      <!-- Logo e nome dell'applicazione, cliccabile per tornare alla homepage -->
       <a class="navbar-brand d-flex" href="/">
         <img
-          class="nav_img"
+          class="nav_img" 
           src="https://dhhvideos.s3.eu-central-1.amazonaws.com/Delivery-Hero-Comet.png"
-          alt=""
+          alt="Logo DeliveBoo"
         />
-        <h2 class="img_title"><strong>DeliveBoo</strong></h2>
+        <h2 class="img_title"><strong>DeliveBoo</strong></h2> <!-- Nome dell'applicazione -->
       </a>
+      <!-- Bottone per il menu a tendina su dispositivi mobili -->
       <button
         class="navbar-toggler"
         type="button"
@@ -26,11 +30,13 @@ export default {
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+      <!-- Elementi del menu di navigazione -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/ristoranti">Ristoranti</a>
+            <a class="nav-link" href="/ristoranti">Ristoranti</a> <!-- Link alla sezione Ristoranti -->
           </li>
+          <!-- Dropdown per le opzioni dedicate ai ristoratori -->
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -45,13 +51,11 @@ export default {
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
                 <a class="dropdown-item" href="http://localhost:8000/register"
-                  >Registrati</a
-                >
+                  >Registrati</a> <!-- Link per la registrazione dei ristoratori -->
               </li>
               <li>
                 <a class="dropdown-item" href="http://localhost:8000/login"
-                  >Entra</a
-                >
+                  >Entra</a> <!-- Link per il login dei ristoratori -->
               </li>
             </ul>
           </li>
@@ -62,7 +66,8 @@ export default {
 </template>
 
 <style lang="scss">
-@import '../styles/general.scss';
+@import '../styles/general.scss'; //Importazione degli stili generali
+
 .navBar {
   background-color: #ffc244;
   .nav_img {
