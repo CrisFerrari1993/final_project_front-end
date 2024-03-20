@@ -1,45 +1,46 @@
 <template>
   <section class="bg-gold pt-5">
-    <h1 class="madimi-one-regular mb-5 text-center">Ristoranti vicino a te</h1>
-    <div class="container px-2">
-      <div class="row justify-content-center">
-        <div
-          v-for="category in categories"
-          :key="category.id"
-          class="col-sm-3 col-md-3 col-xl-2 p-1 p-2"
-          @click="
-            getMyRest(
-              restaurant.id,
-              restaurant.name,
-              restaurant.adress,
-              restaurant.logo
-            )
-          "
-        >
-          <div class="d-flex justify-content-center align-items-center">
-            <h4 class="madimi-one-regular m-0">
-              {{ category.name }}
-            </h4>
-            <input
-              type="checkbox"
-              :id="category.id"
-              :value="category.id"
-              v-model="selectedCategories"
-              class="mx-1"
-            />
+    <PageRestaurantDetails v-if="ref" :id="idRestaurant" :logo="getImageUrl(logoRestaurant)" :address="addressRestaurant" :name="nameRestaurant"/>
+    <div v-else>
+      <h1 class="madimi-one-regular mb-5 text-center">Ristoranti vicino a te</h1>
+      <div class="container px-2">
+        <div class="row justify-content-center">
+          <div
+            v-for="category in categories"
+            :key="category.id"
+            class="col-sm-3 col-md-3 col-xl-2 p-1 p-2"
+            @click="
+              getMyRest(
+                restaurant.id,
+                restaurant.name,
+                restaurant.adress,
+                restaurant.logo
+              )
+            "
+          >
+            <div class="d-flex justify-content-center align-items-center">
+              <h4 class="madimi-one-regular m-0">
+                {{ category.name }}
+              </h4>
+              <input
+                type="checkbox"
+                :id="category.id"
+                :value="category.id"
+                v-model="selectedCategories"
+                class="mx-1"
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="container px-2">
-      <div class="row">
-        <div
-          v-for="restaurant in filteredRestaurants"
-          :key="restaurant.id"
-          class="col-sm-12 col-md-4 col-xl-3 px-2 py-3"
-          @click="getMyRest(restaurant)"
-        >
-          <a href="/:restaurant.id/details">
+      <div class="container px-2">
+        <div class="row">
+          <div
+            v-for="restaurant in filteredRestaurants"
+            :key="restaurant.id"
+            class="col-sm-12 col-md-4 col-xl-3 px-2 py-3"
+            @click="getMyRest(restaurant)"
+          >
             <div class="card_link">
               <div class="container resturant_card">
                 <img
@@ -54,7 +55,7 @@
                 </div>
               </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
@@ -63,14 +64,21 @@
 
 <script>
 import axios from 'axios';
-
+import PageRestaurantDetails from './PageRestaurantDetails.vue';
 export default {
   name: 'AppContent',
+  components:{
+    PageRestaurantDetails,
+  },
   data() {
     return {
       restaurants: [],
       categories: [],
       selectedCategories: [],
+      idRestaurant: "",
+      logoRestaurant:"",
+      addressRestaurant: "",
+      nameRestaurant: "",
       ref: false,
     };
   },
