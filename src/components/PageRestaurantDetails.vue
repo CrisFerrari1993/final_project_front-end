@@ -29,6 +29,11 @@ export default {
         console.log(t.arrDish);
       });
   },
+  methods: {
+    getImgUrl(url) {
+      return `http://127.0.0.1:8000/storage/` + url;
+    },
+  },
 };
 </script>
 
@@ -39,8 +44,8 @@ export default {
         class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
       >
         <div class="col p-4 d-flex flex-column position-static">
-          <h3 class="mb-0">{{ name }}</h3>
-          <div class="mb-1 text-muted">{{ address }}</div>
+          <h3 class="mb-0 madimi-one-regular">{{ name }}</h3>
+          <h5 class="mb-1 madimi-one-regular text-muted">{{ address }}</h5>
         </div>
         <div class="col-auto d-none d-lg-block">
           <img
@@ -61,8 +66,8 @@ export default {
       v-for="eleDish in arrDish"
     >
       <img
-        src="https://www.pugliainesclusiva.it/puglia/wp-content/uploads/2015/02/spaghetti-allo-scoglio-1.jpg"
-        class="card-img-top"
+        :src="getImgUrl(eleDish.image)"
+        class="card-img-top width_fix"
         alt="..."
       />
       <div class="card-body">
@@ -78,5 +83,10 @@ export default {
 <style lang="scss" scoped>
 .card {
   margin: 10px;
+}
+.width_fix {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
 }
 </style>

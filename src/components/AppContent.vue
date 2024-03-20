@@ -1,8 +1,16 @@
 <template>
   <section class="bg-gold pt-5">
-    <PageRestaurantDetails v-if="ref" :id="idRestaurant" :logo="getImageUrl(logoRestaurant)" :address="addressRestaurant" :name="nameRestaurant"/>
+    <PageRestaurantDetails
+      v-if="ref"
+      :id="idRestaurant"
+      :logo="getImageUrl(logoRestaurant)"
+      :address="addressRestaurant"
+      :name="nameRestaurant"
+    />
     <div v-else>
-      <h1 class="madimi-one-regular mb-5 text-center">Ristoranti vicino a te</h1>
+      <h1 class="madimi-one-regular mb-5 text-center">
+        Ristoranti vicino a te
+      </h1>
       <div class="container px-2">
         <div class="row justify-content-center">
           <div
@@ -67,7 +75,7 @@ import axios from 'axios';
 import PageRestaurantDetails from './PageRestaurantDetails.vue';
 export default {
   name: 'AppContent',
-  components:{
+  components: {
     PageRestaurantDetails,
   },
   data() {
@@ -75,10 +83,10 @@ export default {
       restaurants: [],
       categories: [],
       selectedCategories: [],
-      idRestaurant: "",
-      logoRestaurant:"",
-      addressRestaurant: "",
-      nameRestaurant: "",
+      idRestaurant: '',
+      logoRestaurant: '',
+      addressRestaurant: '',
+      nameRestaurant: '',
       ref: false,
     };
   },
@@ -89,7 +97,7 @@ export default {
     getMyRest(restaurant) {
       this.idRestaurant = restaurant.id;
       this.nameRestaurant = restaurant.name;
-      this.addressRestaurant = restaurant.address;
+      this.addressRestaurant = restaurant.adress;
       this.logoRestaurant = restaurant.logo;
       this.ref = !this.ref;
       console.log('hai cliccato', restaurant.id);
@@ -105,6 +113,7 @@ export default {
           axios.spread((categoriesRes, restaurantsRes) => {
             this.categories = categoriesRes.data.results;
             this.restaurants = restaurantsRes.data.results;
+            console.log(this.restaurants);
           })
         )
         .catch(err => {
