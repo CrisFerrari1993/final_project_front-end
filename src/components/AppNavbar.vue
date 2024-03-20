@@ -33,10 +33,6 @@ export default {
       <!-- Elementi del menu di navigazione -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="/ristoranti">Ristoranti</a> <!-- Link alla sezione Ristoranti -->
-          </li>
-          <!-- Dropdown per le opzioni dedicate ai ristoratori -->
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"

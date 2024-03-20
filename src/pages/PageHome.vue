@@ -1,18 +1,18 @@
 <script>
 import AppJumbo from '../components/AppJumbo.vue';
-import AppCategories from '../components/AppCategories.vue';
+import AppContent from '../components/AppContent.vue';
 export default {
   name: 'PageHome',
   components: {
     AppJumbo,
-    AppCategories,
+    AppContent,
   },
 };
 </script>
 
 <template>
   <AppJumbo />
-  <AppCategories />
+  <AppContent />
 </template>
 
 <style></style>

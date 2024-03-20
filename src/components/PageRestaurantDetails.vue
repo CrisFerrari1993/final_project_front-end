@@ -19,13 +19,13 @@ export default {
   mounted(){
     const t = this
     axios
-      .get('http://localhost:8000/api/dishes', {
+      .get(`http://localhost:8000/api/restaurants/${t.id}/dishes`, {
         params: {
           idRest: this.id,
         }
       })
       .then(res => {
-        t.arrDish = res.data.dishes;
+        t.arrDish = res.data.results;
         console.log(t.arrDish);
       })
   },
