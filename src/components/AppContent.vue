@@ -1,22 +1,25 @@
 <template>
-  <section>
-    <h1 class="madimi-one-regular mt-5 mb-5 text-center">
-      Ristoranti vicino a te
-    </h1>
+  <section class="bg-gold pt-5">
+    <h1 class="madimi-one-regular mb-5 text-center">Ristoranti vicino a te</h1>
     <div class="container px-2">
       <div class="row justify-content-center">
         <div
           v-for="category in categories"
           :key="category.id"
-          class="col-sm-3 col-md-3 col-xl-2 p-1"
+          class="col-sm-3 col-md-3 col-xl-2 p-1 p-2"
         >
-          <label :for="category.id">{{ category.name }}</label>
-          <input
-            type="checkbox"
-            :id="category.id"
-            :value="category.id"
-            v-model="selectedCategories"
-          />
+          <div class="d-flex justify-content-center align-items-center">
+            <h4 class="madimi-one-regular m-0">
+              {{ category.name }}
+            </h4>
+            <input
+              type="checkbox"
+              :id="category.id"
+              :value="category.id"
+              v-model="selectedCategories"
+              class="mx-1"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -92,7 +95,7 @@ export default {
   },
   computed: {
     filteredRestaurants() {
-      console.log(this.restaurants)
+      console.log(this.restaurants);
       if (this.selectedCategories.length === 0) {
         return this.restaurants;
       } else {
@@ -111,12 +114,13 @@ export default {
 </script>
 <style lang="scss">
 .resturant_card {
+  background-color: white;
   border: 1px solid rgb(237, 237, 237);
   border-radius: 5px;
-  box-shadow: 10px 5px 5px rgb(241, 241, 241);
+  box-shadow: 10px 5px 5px rgb(255, 214, 188);
   transition: 100ms;
   &:hover {
-    box-shadow: 10px 5px 5px rgb(188, 188, 188);
+    box-shadow: 10px 5px 5px rgb(255, 200, 123);
   }
   img {
     height: 300px;
@@ -127,5 +131,8 @@ export default {
 .card_link {
   color: black;
   text-decoration: none;
+}
+.bg-gold {
+  background-color: rgb(255, 249, 226);
 }
 </style>
