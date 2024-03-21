@@ -17,7 +17,26 @@ export default {
       },
     };
   },
+
+  props: {
+    authorization: {
+      required: true,
+      type: String
+    }
+  },
+
   methods: {
+
+    onSuccess(payload) {
+      // let nonce = payload.nonce;
+      // Do something great with the nonce...
+    },
+
+    onError(error) {
+      // let message = error.message;
+      // Whoops, an error has occured while trying to get the nonce
+    },
+
     async submitOrder() {
       try {
         const response = await axios.post(
@@ -29,6 +48,7 @@ export default {
         console.error(error);
       }
     },
+
     calculateTotal() {
       let total = 0;
       this.store.cartItems.forEach(item => {
@@ -36,6 +56,7 @@ export default {
       });
       return total;
     },
+
   },
 };
 </script>
@@ -82,7 +103,11 @@ export default {
     <div class="row">
       <div class="col-8">
         <h1>Inserisci i dati di pagamento</h1>
-        <form @submit.prevent="submitOrder" method="POST">
+
+        <v-braintree authorization="authorization" @success="onSuccess" @error="onError">
+        </v-braintree>
+
+        <!-- <form @submit.prevent="submitOrder" method="POST">
           <div class="mb-3">
             <label for="customer_name" class="form-label">Nome</label>
             <input
@@ -164,12 +189,12 @@ export default {
                   >
                     chiudi
                   </button>
-                  <!--   <button type="button" class="btn btn-primary">Invia</button> -->
+                  
                 </div>
               </div>
             </div>
           </div>
-        </form>
+        </form> -->
       </div>
     </div>
   </div>
