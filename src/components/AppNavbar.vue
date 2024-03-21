@@ -50,6 +50,9 @@ export default {
         localStorage.setItem('cartItems', JSON.stringify(this.store.cartItems));
       }
     },
+    changeCheck(){
+      this.store.refToCheck = !this.store.refToCheck;
+    }
   },
   computed: {
     totalCartItems() {
@@ -208,9 +211,7 @@ export default {
                 Il carrello è vuoto
               </div>
               <div class="div d-flex justify-content-center">
-                <router-link :to="{ name: 'checkout' }">
-                  <button class="ProdottoStyle" @click="">CHECKOUT</button>
-                </router-link>
+                <button class="ProdottoStyle" @click="changeCheck()">CHECKOUT</button>
               </div>
             </div>
           </div>
