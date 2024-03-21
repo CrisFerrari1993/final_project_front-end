@@ -56,9 +56,7 @@ export default {
 
 <template>
   <section class="bg-warning">
-    <div
-      class="container d-flex justify-content-between py-3 align-items-center"
-    >
+    <div class="container d-flex justify-content-between py-3 align-items-center">
       <div class="">
         <h3 class="mb-0 madimi-one-regular">{{ name }}</h3>
         <h5 class="mb-1 text-muted">{{ address }}</h5>
@@ -69,11 +67,7 @@ export default {
     </div>
   </section>
   <div class="w-100 row justify-content-center">
-    <div
-      class="col-12 col-sm-5 col-md-3 p-2"
-      style="width: 18rem"
-      v-for="eleDish in arrDish"
-    >
+    <div class="col-12 col-sm-5 col-md-3 p-2" style="width: 18rem" v-for="eleDish in arrDish">
       <div class="content border p-1 text-center bg-light">
         <img :src="getImgUrl(eleDish.image)" class="width_fix mb-2" alt="..." />
         <div class="card-body">
@@ -81,20 +75,11 @@ export default {
           <p class="card-text">
             {{ eleDish.description }}
           </p>
-          <button
-            v-if="!addedToCartMap[eleDish.id]"
-            type="button"
-            class="btn btn-primary"
-            @click="addToCart(eleDish)"
-          >
+          <h5 class="card-title madimi-one-regular">{{ eleDish.price }} €</h5>
+          <button v-if="!addedToCartMap[eleDish.id]" type="button" class="btn btn-primary" @click="addToCart(eleDish)">
             Aggiungi al carrello
           </button>
-          <button
-            v-else
-            type="button"
-            class="btn btn-danger"
-            @click="removeFromCart(eleDish)"
-          >
+          <button v-else type="button" class="btn btn-danger" @click="removeFromCart(eleDish)">
             Rimuovi dal carrello
           </button>
         </div>
@@ -102,15 +87,18 @@ export default {
     </div>
   </div>
 </template>
+
 <style lang="scss" scoped>
 .card {
   margin: 10px;
 }
+
 .width_fix {
   width: 100%;
   height: 150px;
   object-fit: cover;
 }
+
 .content {
   height: 330px;
 }
