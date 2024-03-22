@@ -43,12 +43,12 @@ export default {
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-8">
+      <div class="col-sm-12 col-md-12 col-xl-12">
         <h1>Riepilogo ordine</h1>
 
         <div class="container">
           <div class="row">
-            <div class="col-12 mt-2">
+            <div class="col-sm-12 col-md-12 col-xl-12">
               <table class="table table-stripied">
                 <thead>
                   <tr>
@@ -80,7 +80,7 @@ export default {
       </div>
     </div>
     <div class="row">
-      <div class="col-8">
+      <div class="col-sm-12 col-md-12 col-xl-12 text-center">
         <h1>Inserisci i dati di pagamento</h1>
         <form @submit.prevent="submitOrder" method="POST">
           <div class="mb-3">
