@@ -5,4 +5,5 @@ export const store = reactive({
   arrDish: [],
   productsArray: [],
   cartItems: [],
+  refToCheck: false,
 });

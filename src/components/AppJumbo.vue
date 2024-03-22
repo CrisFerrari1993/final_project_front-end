@@ -1,11 +1,17 @@
 <script>
+import { store } from '../store';
 export default {
   name: 'AppJumbo',
+  data(){
+    return{
+      store,
+    }
+  }
 };
 </script>
 <template>
   <!-- Sezione jumbotron per un impatto visivo forte -->
-  <section class="jumbotron">
+  <section class="jumbotron" v-if="!store.refToCheck">
     <div class="container p-5">
       <!-- Container con padding per distanziare il contenuto dai bordi -->
       <div class="row">
