@@ -31,7 +31,7 @@ export default {
 
     mounted() {
       braintree.client.create({
-        authorization: "YOUR_AUTHORIZATION_KEY"
+        authorization: sandbox_v25kx76r_bkbnxwjp5xdpg5k9
       })
         .then(clientInstance => {
           let options = {
@@ -135,27 +135,35 @@ export default {
 
         <!-- form di test -->
         <form>
+
+          <!-- totale da pagare -->
           <div class="form-group">
-            <label for="amount">Amount</label>
+            <label for="amount">Totale da pagare</label>
             <div class="input-group">
               <div class="input-group-prepend"><span class="input-group-text">€</span></div>
-              <input type="number" id="amount" class="form-control" placeholder="Enter Amount">
+              <input type="number" id="amount" class="form-control">
             </div>
           </div>
+
           <hr />
+
+          <!-- numero carta -->
           <div class="form-group">
-            <label>Credit Card Number</label>
-            <div id="creditCardNumber" class="form-control"></div>
+            <label>Numero carta</label>
+            <input type="number" id="creditCardNumber">
           </div>
+
           <div class="form-group">
             <div class="row">
+              <!-- data di scadenza -->
               <div class="col-6">
-                <label>Expire Date</label>
-                <div id="expireDate" class="form-control"></div>
+                <label>Data di scadenza</label>
+                <input type="date" id="expiryDate">
               </div>
+              <!-- CVV -->
               <div class="col-6">
                 <label>CVV</label>
-                <div id="cvv" class="form-control"></div>
+                <input type="number" id="cvv">
               </div>
             </div>
           </div>
