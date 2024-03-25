@@ -1,34 +1,67 @@
 <script>
-import { store } from '../store.js';
-import axios from 'axios';
+import { store } from "../store.js";
+import axios from "axios";
+import dropin from "braintree-web-drop-in";
 
 export default {
-  name: 'AppCheckout',
+  name: "AppCheckout",
   data() {
     return {
       store,
       orderData: {
-        customer_name: '',
-        customer_surname: '',
-        customer_address: '',
-        customer_number: '',
-        total_order: '100',
+        customer_name: "",
+        customer_surname: "",
+        customer_address: "",
+        customer_number: "",
+        total_order: "100",
         state_payment: 1,
       },
+      invio_dati: {
+        
+      "token" : "",
+      "dish" : 29
+      }
     };
   },
 
-  props: {
-    authorization: {
-      required: true,
-      type: String
-    }
-  },
 
   methods: {
+    prova() {
+      this.dropInInstance.requestPaymentMethod((err, payload) => {
+        if (err) {
+          console.error("Errore nella richiesta del metodo di pagamento:", err);
+          this.onError(err);
+          return;
+        }
+        // Qui invii il payload.nonce al tuo server per processare il pagamento tramite Braintree
+        console.log("Nonce ottenuto:", payload.nonce);
+        this.onSuccess(payload);
+
+        // Dopo aver completato il pagamento tramite Braintree, invia i dati del form al server
+        this.chiamata();
+      });
+    },
+
+    chiamata(){
+      axios
+        .post(
+          'http://127.0.0.1:8000/api/makePayment', 
+          this.invio_dati
+        )
+
+        .then((res) =>{
+          console.log(res.data)
+        })
+
+        .catch((err) =>{
+          console.log(err)
+        })
+    },
 
     onSuccess(payload) {
-      // let nonce = payload.nonce;
+      let nonce = payload.nonce;
+      this.invio_dati.token = payload.nonce;
+      console.log(nonce);
       // Do something great with the nonce...
     },
 
@@ -51,12 +84,36 @@ export default {
 
     calculateTotal() {
       let total = 0;
-      this.store.cartItems.forEach(item => {
+      this.store.cartItems.forEach((item) => {
         total += item.price * item.quantity;
       });
       return total;
     },
-
+  },
+  mounted() {
+    axios.get("http://127.0.0.1:8000/api/generate").then((res) => {
+      let token = null;
+      token = res.data.token;
+      console.log(token);
+      dropin.create(
+        {
+          authorization: token,
+          container: "#dropin-container",
+          //traduzione form
+          locale: "it_IT",
+        },
+        (error, dropinInstance) => {
+          if (error) {
+            console.error(error);
+          } else {
+            this.dropInInstance = dropinInstance;
+          }
+        }
+      );
+      return {
+        token: token,
+      };
+    });
   },
 };
 </script>
@@ -104,8 +161,9 @@ export default {
       <div class="col-sm-12 col-md-12 col-xl-12 text-center">
         <h1>Inserisci i dati di pagamento</h1>
 
-        <v-braintree authorization="authorization" @success="onSuccess" @error="onError">
-        </v-braintree>
+        <div id="dropin-container" class="mt-5"></div>
+        <div>{{ invio_dati }}</div>
+        <button @click="prova"></button>
 
         <!-- <form @submit.prevent="submitOrder" method="POST">
           <div class="mb-3">
