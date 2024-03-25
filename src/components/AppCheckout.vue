@@ -12,20 +12,31 @@ export default {
 
       store,
 
-      userData: {
+      paymentData: {
+        token: "",
+        dish: "",
+      },
+
+      orderData: {
         customer_name: "Antonio",
         customer_lastName: "",
         customer_adress: "",
         customer_mail_adress: "",
-        restaurant_id: "1",
+        restaurant_id: 4,
         customer_number: "",
         customer_phone_number: "",
+
+        dishes: [
+          { id: 2, quantity: 1, name: "Pizza", price: 10 },
+          { id: 4, quantity: 2, name: "Pasta", price: 10 },
+        ]
+
       },
 
-      orderData: {
-        "token": "",
-        // "dish": 29
-      }
+      //   {
+      //   "token" : "fake-valid-nonce",
+      //     "dish" : 19
+      // }
 
     };
   },
@@ -54,6 +65,45 @@ export default {
     onSuccess(payload) {
       let nonce = payload.nonce;
       this.orderData.token = nonce;
+
+
+
+      const storedData = JSON.parse(localStorage.getItem("cartItems") || "{}");
+
+      const productIds = {};
+      storedData.forEach(order => {
+        const { id, price } = order;
+        // Se l'ID del piatto è già presente, aggiungi il prezzo al totale         
+        // Altrimenti, crea una nuova voce nell'oggetto         
+        if (productIds[id]) {
+          productIds[id] += price;
+        } else {
+          productIds[id] = price;
+        }
+      });
+
+      this.paymentData = {
+        token: nonce,
+        dish: productIds,
+      }
+
+      console.log("Prodotti", productIds);
+
+      axios
+        .post(
+          'http://127.0.0.1:8000/api/makePayment',
+          this.paymentData
+        )
+
+        .then((res) => {
+          // debug
+          console.log(res)
+        })
+
+        .catch((err) => {
+          console.log(err)
+        })
+
       // debug
       // console.log(nonce);
       // Do something great with the nonce...
@@ -67,13 +117,13 @@ export default {
     chiamata() {
       axios
         .post(
-          'http://127.0.0.1:8000/api/newOrder',
+          'http://127.0.0.1:8000/api/create/order',
           this.userData
         )
 
         .then((res) => {
           // debug
-          console.log("Questi sono i dati che verranno passati al database", this.userData)
+          console.log("Questi sono i dati che verranno passati al database", userData)
         })
 
         .catch((err) => {
@@ -104,6 +154,7 @@ export default {
   },
 
   mounted() {
+
     axios.get("http://127.0.0.1:8000/api/generate").then((res) => {
       let token = null;
       token = res.data.token;
@@ -127,6 +178,7 @@ export default {
         token: token,
       };
     });
+
   },
 
 };
