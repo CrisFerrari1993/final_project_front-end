@@ -31,6 +31,8 @@ export default {
 
   methods: {
 
+
+
     async submitOrder() {
       try {
         const response = await axios.post(
@@ -55,16 +57,29 @@ export default {
 
   mounted() {
 
-    // Include Braintree JS client SDK
-    const script = document.createElement('script');
-    script.src = 'https://js.braintreegateway.com/web/dropin/1.42.0/js/dropin.min.js';
-    document.head.appendChild(script);
-
-    // Include jQuery
-    const jQueryScript = document.createElement('script');
-    jQueryScript.src = 'https://code.jquery.com/jquery-3.2.1.min.js';
-    jQueryScript.crossOrigin = 'anonymous';
-    document.head.appendChild(jQueryScript);
+    axios.get("http://127.0.0.1:8000/api/generate").then((res) => {
+      let token = null;
+      token = res.data.token;
+      console.log(token);
+      dropin.create(
+        {
+          authorization: token,
+          container: "#dropin-container",
+          //traduzione form
+          locale: "it_IT",
+        },
+        (error, dropinInstance) => {
+          if (error) {
+            console.error(error);
+          } else {
+            this.dropInInstance = dropinInstance;
+          }
+        }
+      );
+      return {
+        token: token,
+      };
+    });
 
   }
 
@@ -115,40 +130,12 @@ export default {
         <h1>Inserisci i dati di pagamento</h1>
 
         <!-- form di test -->
-        <form>
+        <div id="dropin-container" class="mt-5"></div>
 
-          <!-- totale da pagare -->
-          <div class="form-group">
-            <label for="amount">Totale da pagare</label>
-            <div class="input-group">
-              <div class="input-group-prepend"><span class="input-group-text">€</span></div>
-              <input type="number" id="amount" class="form-control">
-            </div>
-          </div>
-
-          <hr />
-
-          <!-- numero carta -->
-          <div class="form-group">
-            <label>Numero carta</label>
-            <input type="number" id="creditCardNumber">
-          </div>
-
-          <div class="form-group">
-            <div class="row">
-              <!-- data di scadenza -->
-              <div class="col-6">
-                <label>Data di scadenza</label>
-                <input type="date" id="expiryDate">
-              </div>
-              <!-- CVV -->
-              <div class="col-6">
-                <label>CVV</label>
-                <input type="number" id="cvv">
-              </div>
-            </div>
-          </div>
-        </form>
+        <v-braintree
+          authorization="eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpGVXpJMU5pSXNJbXRwWkNJNklqSXdNVGd3TkRJMk1UWXRjMkZ1WkdKdmVDSXNJbWx6Y3lJNkltaDBkSEJ6T2k4dllYQnBMbk5oYm1SaWIzZ3VZbkpoYVc1MGNtVmxaMkYwWlhkaGVTNWpiMjBpZlEuZXlKbGVIQWlPakUzTVRFME5EZzVNRGNzSW1wMGFTSTZJbU00WmpNek1UTTFMVGt4WldRdE5EWTNZeTA1TmpaaUxUSTFOVFE0TXpFeU1qVTVZaUlzSW5OMVlpSTZJbUpyWW01NGQycHdOWGhrY0djMWF6a2lMQ0pwYzNNaU9pSm9kSFJ3Y3pvdkwyRndhUzV6WVc1a1ltOTRMbUp5WVdsdWRISmxaV2RoZEdWM1lYa3VZMjl0SWl3aWJXVnlZMmhoYm5RaU9uc2ljSFZpYkdsalgybGtJam9pWW10aWJuaDNhbkExZUdSd1p6VnJPU0lzSW5abGNtbG1lVjlqWVhKa1gySjVYMlJsWm1GMWJIUWlPbVpoYkhObGZTd2ljbWxuYUhSeklqcGJJbTFoYm1GblpWOTJZWFZzZENKZExDSnpZMjl3WlNJNld5SkNjbUZwYm5SeVpXVTZWbUYxYkhRaVhTd2liM0IwYVc5dWN5STZlMzE5LmdpNmNUTW54STdQRW5KcnVWSG1jdmdSVTU1ZTBoTzVONWw1RHJYWFFzeWdJV1hCZGZBYW1zb2h2Vi1kWjNFWkp0RUJkYlIyeENITHI1cm5XcTdhMUFnIiwiY29uZmlnVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL2JrYm54d2pwNXhkcGc1azkvY2xpZW50X2FwaS92MS9jb25maWd1cmF0aW9uIiwiZ3JhcGhRTCI6eyJ1cmwiOiJodHRwczovL3BheW1lbnRzLnNhbmRib3guYnJhaW50cmVlLWFwaS5jb20vZ3JhcGhxbCIsImRhdGUiOiIyMDE4LTA1LTA4IiwiZmVhdHVyZXMiOlsidG9rZW5pemVfY3JlZGl0X2NhcmRzIl19LCJjbGllbnRBcGlVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvYmtibnh3anA1eGRwZzVrOS9jbGllbnRfYXBpIiwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwibWVyY2hhbnRJZCI6ImJrYm54d2pwNXhkcGc1azkiLCJhc3NldHNVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImF1dGhVcmwiOiJodHRwczovL2F1dGgudmVubW8uc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbSIsInZlbm1vIjoib2ZmIiwiY2hhbGxlbmdlcyI6W10sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsImFuYWx5dGljcyI6eyJ1cmwiOiJodHRwczovL29yaWdpbi1hbmFseXRpY3Mtc2FuZC5zYW5kYm94LmJyYWludHJlZS1hcGkuY29tL2JrYm54d2pwNXhkcGc1azkifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImJpbGxpbmdBZ3JlZW1lbnRzRW5hYmxlZCI6dHJ1ZSwiZW52aXJvbm1lbnROb05ldHdvcmsiOnRydWUsInVudmV0dGVkTWVyY2hhbnQiOmZhbHNlLCJhbGxvd0h0dHAiOnRydWUsImRpc3BsYXlOYW1lIjoiVGVzdCIsImNsaWVudElkIjpudWxsLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJicmFpbnRyZWVDbGllbnRJZCI6Im1hc3RlcmNsaWVudDMiLCJtZXJjaGFudEFjY291bnRJZCI6InRlc3QiLCJjdXJyZW5jeUlzb0NvZGUiOiJFVVIifX0="
+          @success="onSuccess" @error="onError">
+        </v-braintree>
 
         <!-- <form @submit.prevent="submitOrder" method="POST">
           <div class="mb-3">
