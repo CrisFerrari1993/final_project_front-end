@@ -5,7 +5,9 @@ import axios from 'axios';
 import braintree from 'braintree-web';
 
 export default {
+
   name: 'AppCheckout',
+
   data() {
     return {
       store,
@@ -29,43 +31,6 @@ export default {
 
   methods: {
 
-    mounted() {
-      braintree.client.create({
-        authorization: sandbox_v25kx76r_bkbnxwjp5xdpg5k9
-      })
-        .then(clientInstance => {
-          let options = {
-            client: clientInstance,
-            styles: {
-              input: {
-                'font-size': '14px',
-                'font-family': 'Open Sans'
-              }
-            },
-            fields: {
-              number: {
-                selector: '#creditCardNumber',
-                placeholder: 'Enter Credit Card'
-              },
-              cvv: {
-                selector: '#cvv',
-                placeholder: 'Enter CVV'
-              },
-              expirationDate: {
-                selector: '#expireDate',
-                placeholder: '00 / 0000'
-              }
-            }
-          }
-          return braintree.hostedFields.create(options)
-        })
-        .then(hostedFieldInstance => {
-          // @TODO - Use hostedFieldInstance to send data to Braintree
-        })
-        .catch(err => {
-        });
-    },
-
     async submitOrder() {
       try {
         const response = await axios.post(
@@ -87,6 +52,22 @@ export default {
     },
 
   },
+
+  mounted() {
+
+    // Include Braintree JS client SDK
+    const script = document.createElement('script');
+    script.src = 'https://js.braintreegateway.com/web/dropin/1.42.0/js/dropin.min.js';
+    document.head.appendChild(script);
+
+    // Include jQuery
+    const jQueryScript = document.createElement('script');
+    jQueryScript.src = 'https://code.jquery.com/jquery-3.2.1.min.js';
+    jQueryScript.crossOrigin = 'anonymous';
+    document.head.appendChild(jQueryScript);
+
+  }
+
 };
 </script>
 
