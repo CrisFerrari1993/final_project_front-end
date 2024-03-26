@@ -12,20 +12,31 @@ export default {
 
       store,
 
-      userData: {
-        customer_name: "Antonio",
-        customer_lastName: "Giorgi",
-        customer_adress: "via giorgi 55",
-        customer_mail_adress: "sonogiorgio@gmail.com",
-        restaurant_id: 1,
-        customer_number: 3345,
-        customer_phone_number: "45434543",
+      paymentData: {
+        token: "",
+        dish: "",
       },
 
       orderData: {
-        "token": "",
-        // "dish": 29
-      }
+        customer_name: "Antonio",
+        customer_lastName: "",
+        customer_adress: "",
+        customer_mail_adress: "",
+        restaurant_id: 4,
+        customer_number: "",
+        customer_phone_number: "",
+
+        dishes: [
+          { id: 2, quantity: 1, name: "Pizza", price: 10 },
+          { id: 4, quantity: 2, name: "Pasta", price: 10 },
+        ]
+
+      },
+
+      //   {
+      //   "token" : "fake-valid-nonce",
+      //     "dish" : 19
+      // }
 
     };
   },
@@ -45,15 +56,52 @@ export default {
         // console.log("Nonce ottenuto:", payload.nonce);
         this.onSuccess(payload);
 
-        // Dopo aver completato il pagamento tramite Braintree, invia i dati del form al server
-        this.chiamata();
-
       });
     },
 
+    // metodo richiamato se il pagamento è andato a buon fine
     onSuccess(payload) {
+
       let nonce = payload.nonce;
       this.orderData.token = nonce;
+
+      const storedData = JSON.parse(localStorage.getItem("cartItems") || "{}");
+
+      const productIds = {};
+      storedData.forEach(order => {
+        const { id, price } = order;
+        // Se l'ID del piatto è già presente, aggiungi il prezzo al totale         
+        // Altrimenti, crea una nuova voce nell'oggetto         
+        if (productIds[id]) {
+          productIds[id] += price;
+        } else {
+          productIds[id] = price;
+        }
+      });
+
+      this.paymentData = {
+        token: nonce,
+        dish: productIds,
+      }
+
+      console.log("Prodotti", productIds);
+
+      axios
+        .post(
+          'http://127.0.0.1:8000/api/makePayment',
+          this.paymentData
+        )
+
+        .then((res) => {
+          // Dopo aver completato il pagamento tramite Braintree, invia i dati del form al server
+          this.chiamata();
+          console.log(res)
+        })
+
+        .catch((err) => {
+          console.log(err)
+        })
+
       // debug
       // console.log(nonce);
       // Do something great with the nonce...
@@ -65,34 +113,29 @@ export default {
     },
 
     chiamata() {
-      axios
-        .post(
-          'http://127.0.0.1:8000/api/newOrder',
-          this.userData
-        )
 
-        .then((res) => {
-          // debug
-          console.log("Questi sono i dati che verranno passati al database", this.userData)
-        })
+      let button = document.getElementById("invio");
 
-        .catch((err) => {
-          console.log(err)
-        })
+      button.addEventListener('click', function (event) {
 
+        axios
+          .post(
+            'http://127.0.0.1:8000/api/create/order',
+            this.orderData
+          )
+
+          .then((res) => {
+            // debug
+            console.log("Questi sono i dati che verranno passati al database", this.orderData);
+            console.log("parametri inviati: ");
+          })
+
+          .catch((err) => {
+            console.log(err)
+          })
+
+      });
     },
-
-    // async submitOrder() {
-    //   try {
-    //     const response = await axios.post(
-    //       this.store.apiUrl + this.store.apiOrders,
-    //       this.orderData
-    //     );
-    //     console.log(response.data);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // },
 
     calculateTotal() {
       let total = 0;
@@ -103,7 +146,9 @@ export default {
     },
   },
 
+
   mounted() {
+
     axios.get("http://127.0.0.1:8000/api/generate").then((res) => {
       let token = null;
       token = res.data.token;
@@ -127,6 +172,7 @@ export default {
         token: token,
       };
     });
+
   },
 
 };
@@ -175,7 +221,7 @@ export default {
       <div class="col-sm-12 col-md-12 col-xl-12 text-center">
 
         <!-- form dati cliente -->
-        <form @submit.prevent="submitOrder" method="POST">
+        <form @submit.prevent="chiamata" method="POST">
           <div class="mb-3">
             <label for="customer_name" class="form-label">Nome</label>
             <input v-model="orderData.customer_name" type="text" class="form-control" id="customer_name" />
@@ -196,7 +242,7 @@ export default {
             <input v-model="orderData.customer_number" type="text" class="form-control" id="customer_number" />
           </div>
 
-          <button type="submit" class="btn btn-primary">INVIA</button>
+          <button id="invio" type="submit" class="btn btn-primary">INVIA</button>
 
         </form>
 
