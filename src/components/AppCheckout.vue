@@ -13,8 +13,8 @@ export default {
         customer_name: "",
         customer_lastName: "",
         customer_adress: "",
-        customer_mail_adress: "sdsad@gmail.com",
-        customer_phone_number: 0,
+        customer_mail_adress: "",
+        customer_phone_number: "",
         restaurant_id: 2,
       },
       dropInInstance: null,
@@ -64,7 +64,7 @@ export default {
               reject(err);
             } else {
               resolve(payload);
-              console.log('ándato@')
+              console.log('andato@')
             }
           });
         });
@@ -233,6 +233,11 @@ export default {
             <label for="customer_number" class="form-label">Telefono del cliente</label>
             <input v-model="orderData.customer_phone_number" type="tel" class="form-control" id="customer_number" />
           </div>
+          <div class="mb-3">
+            <label for="customer_mail_adress" class="form-label">Indirizzo email</label>
+            <input v-model="orderData.customer_mail_adress" type="text" class="form-control" id="customer_mail_adress" />
+          </div>
+          
           <button id="invio" type="submit" class="btn btn-primary">INVIA</button>
         </form>
 

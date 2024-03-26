@@ -12,15 +12,15 @@ export default {
     };
   },
 
-  created() {
+  // created() {
 
-    // al refresh della pagina il carrello mantiene la memoria
-    const cartItems = JSON.parse(localStorage.getItem('cartItems'));
-    if (cartItems) {
-      this.store.cartItems = cartItems;
-    }
+  //   // al refresh della pagina il carrello mantiene la memoria
+  //   const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+  //   if (cartItems) {
+  //     this.store.cartItems = cartItems;
+  //   }
 
-  },
+  // },
 
   methods: {
 
