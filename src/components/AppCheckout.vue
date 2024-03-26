@@ -14,12 +14,12 @@ export default {
 
       userData: {
         customer_name: "Antonio",
-        customer_lastName: "",
-        customer_adress: "",
-        customer_mail_adress: "",
-        restaurant_id: "1",
-        customer_number: "",
-        customer_phone_number: "",
+        customer_lastName: "Giorgi",
+        customer_adress: "via giorgi 55",
+        customer_mail_adress: "sonogiorgio@gmail.com",
+        restaurant_id: 1,
+        customer_number: 3345,
+        customer_phone_number: "45434543",
       },
 
       orderData: {

@@ -17,14 +17,6 @@
             v-for="category in categories"
             :key="category.id"
             class="col-sm-3 col-md-3 col-xl-2 p-1 p-2"
-            @click="
-              getMyRest(
-                restaurant.id,
-                restaurant.name,
-                restaurant.adress,
-                restaurant.logo
-              )
-            "
           >
             <div class="d-flex justify-content-center align-items-center">
               <h4 class="madimi-one-regular m-0">
@@ -122,18 +114,20 @@ export default {
     },
   },
   computed: {
-    filteredRestaurants() {
-      if (this.selectedCategories.length === 0) {
-        return this.restaurants;
-      } else {
-        return this.restaurants.filter(restaurant => {
-          return restaurant.categories.some(category => {
-            return this.selectedCategories.includes(category.id);
+  filteredRestaurants() {
+    if (this.selectedCategories.length === 0) {
+      return this.restaurants;
+    } else {
+      return this.restaurants.filter(restaurant => {
+        return this.selectedCategories.every(selectedCatId => {
+          return restaurant.categories.some(restaurantCat => {
+            return restaurantCat.id === selectedCatId;
           });
         });
-      }
-    },
+      });
+    }
   },
+},
   mounted() {
     this.fetchCategoriesAndRestaurants();
   },
