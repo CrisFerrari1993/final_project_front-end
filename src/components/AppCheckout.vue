@@ -9,55 +9,80 @@ export default {
   data() {
     return {
       store,
-
-      paymentData: {
-        token: "",
-        dish: "",
-      },
-
       orderData: {
-        customer_name: "Antonio",
-        customer_lastName: "Laikaufz",
-        customer_adress: "via iraq",
-        customer_mail_adress: "obaoba@billLaden.org",
-        restaurant_id: 4,
-        customer_number: "",
-        customer_phone_number: "666666666",
-
-        dishes: [
-          { id: 2, quantity: 1, name: "Pizza", price: 10 },
-          { id: 4, quantity: 2, name: "Pasta", price: 10 },
-        ],
+        customer_name: "",
+        customer_lastName: "",
+        customer_adress: "",
+        customer_mail_adress: "sdsad@gmail.com",
+        customer_phone_number: 0,
+        restaurant_id: 2,
       },
-
-      //   {
-      //   "token" : "fake-valid-nonce",
-      //     "dish" : 19
-      // }
+      dropInInstance: null,
+      showPaymentSection: false,
+      paymentSuccess: false,
     };
   },
 
   methods: {
-    // metodo cl click del bottone paga
-    prova() {
-      this.dropInInstance.requestPaymentMethod((err, payload) => {
-        if (err) {
-          console.error("Errore nella richiesta del metodo di pagamento:", err);
-          this.onError(err);
-          return;
-        }
-        // richiama il metodo onSuccess
-        // Qui invii il payload.nonce al tuo server per processare il pagamento tramite Braintree
-        // console.log("Nonce ottenuto:", payload.nonce);
-        this.onSuccess(payload);
-      });
+    async submitCustomerData() {
+      // Esegui la validazione dei dati del cliente
+      if (this.validateCustomerData()) {
+        // Mostra la sezione di pagamento
+        this.showPaymentSection = true;
+        // Inizializza Braintree Drop-in
+        await this.initializeBraintree();
+      } else {
+        alert("Per favore, completa tutti i campi del modulo del cliente.");
+      }
     },
 
-    // metodo richiamato se il pagamento è andato a buon fine
-    onSuccess(payload) {
-      let nonce = payload.nonce;
-      this.orderData.token = nonce;
+    validateCustomerData() {
+      // Esegui la tua logica di validazione dei dati del cliente
+      // Restituisci true se i dati sono validi, altrimenti false
+      return true; // Esempio di validazione semplice, modifica secondo le tue esigenze
+    },
 
+    async initializeBraintree() {
+      try {
+        const res = await axios.get("http://127.0.0.1:8000/api/generate");
+        const token = res.data.token;
+        this.dropInInstance = await dropin.create({
+          authorization: token,
+          container: "#dropin-container",
+          locale: "it_IT",
+        });
+      } catch (error) {
+        console.error("Errore durante l'inizializzazione di Braintree:", error);
+      }
+    },
+
+    async submitPayment() {
+      try {
+        const payload = await new Promise((resolve, reject) => {
+          this.dropInInstance.requestPaymentMethod((err, payload) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(payload);
+              console.log('ándato@')
+            }
+          });
+        });
+        const paymentResponse = await this.makePayment(payload.nonce);
+
+        // Se il pagamento è andato a buon fine, imposta paymentSuccess su true
+        this.paymentSuccess = true;
+
+        // Se il pagamento è andato a buon fine, invia i dati dell'ordine al server
+        if (paymentResponse.success) {
+          await this.sendOrderData();
+        } else {
+          console.error("Il pagamento non è andato a buon fine:", paymentResponse.error);
+        }
+      } catch (error) {
+        console.error("Errore durante il pagamento:", error);
+      }
+    }, async makePayment(nonce) {
       const storedData = JSON.parse(localStorage.getItem("cartItems") || "{}");
 
       const productIds = {};
@@ -76,68 +101,70 @@ export default {
         token: nonce,
         dish: productIds,
       };
+      try {
+        const response = await axios.post("http://127.0.0.1:8000/api/makePayment", this.paymentData);
 
-      console.log("Prodotti", productIds);
-
-      axios
-        .post("http://127.0.0.1:8000/api/makePayment", this.paymentData)
-
-        .then((res) => {
-          // Dopo aver completato il pagamento tramite Braintree, invia i dati del form al server
-          this.chiamata();
-          console.log(res);
-        })
-
-        .catch((err) => {
-          console.log(err);
-        });
-
-      // debug
-      // console.log(nonce);
-      // Do something great with the nonce...
+        // Restituisci la risposta dalla chiamata makePayment
+        return response.data;
+      } catch (error) {
+        console.error("Errore durante la chiamata makePayment:", error);
+        return { success: false, error: error.message };
+      }
     },
 
-    onError(error) {
-      // let message = error.message;
-      // Whoops, an error has occured while trying to get the nonce
-    },
+    async sendOrderData() {
+      // Verifica se il pagamento è avvenuto con successo
+      if (!this.paymentSuccess) {
+        console.log("Il pagamento non è stato effettuato con successo. Non inviare l'ordine.");
+        return;
+      }
 
-    chiamata() {
-      let button = document.getElementById("invio");
+      const takeInfo = {};
 
-      button.addEventListener("click", function (event) {
-        const takeInfo = {};
+      // Recupera i dati dal localStorage e parsa l'oggetto JSON
+      const storedData = JSON.parse(localStorage.getItem("cartItems") || "[]");
 
-        // Recupera i dati dal localStorage e parsa l'oggetto JSON
-        const storedData = JSON.parse(
-          localStorage.getItem("cartItems") || "{}"
-        );
-
-        // Itera attraverso gli ordini in storedData e aggiungi le informazioni a takeInfo
-        storedData.forEach((order, index) => {
-          const { id, restaurant_id } = order;
-          // Aggiungi le informazioni direttamente a orderData come coppie chiave-valore
-          this.orderData[index] = { id, restaurant_id };
-        });
-
-        console.log(this.orderData);
-
-        axios
-          .post("http://127.0.0.1:8000/api/create/order", this.orderData)
-
-          .then((res) => {
-            // debug
-            console.log(
-              "Questi sono i dati che verranno passati al database",
-              this.orderData
-            );
-            console.log("parametri inviati: ");
-          })
-
-          .catch((err) => {
-            console.log(err);
-          });
+      // Itera attraverso gli ordini in storedData e aggiungi le informazioni a takeInfo
+      storedData.forEach((order, index) => {
+        const { id, quantity } = order;
+        // Aggiungi informazioni a takeInfo
+        takeInfo[index] = { id, quantity };
+        // Aggiungi informazioni a piattiArray
       });
+
+      const requestData = {
+        orderData: [{
+          customer_name: this.orderData.customer_name,
+          customer_lastName: this.orderData.customer_lastName,
+          customer_adress: this.orderData.customer_adress,
+          customer_mail_adress: this.orderData.customer_mail_adress,
+          customer_phone_number: this.orderData.customer_phone_number,
+          restaurant_id: this.orderData.restaurant_id
+        }],
+        takeInfo: takeInfo
+      };
+
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/create/order', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(requestData)
+        });
+
+        if (!response.ok) {
+          throw new Error('Errore durante la richiesta.');
+        } else {
+          // inserire pagine di ringraziamento
+        }
+
+        const data = await response.json();
+        console.log('Risposta dal server:', data);
+      } catch (error) {
+        console.error('Errore durante l\'invio dell\'ordine:', error);
+      }
     },
 
     calculateTotal() {
@@ -148,45 +175,19 @@ export default {
       return total;
     },
   },
-
-  mounted() {
-    axios.get("http://127.0.0.1:8000/api/generate").then((res) => {
-      let token = null;
-      token = res.data.token;
-      console.log(token);
-      dropin.create(
-        {
-          authorization: token,
-          container: "#dropin-container",
-          //traduzione form
-          locale: "it_IT",
-        },
-        (error, dropinInstance) => {
-          if (error) {
-            console.error(error);
-          } else {
-            this.dropInInstance = dropinInstance;
-          }
-        }
-      );
-      return {
-        token: token,
-      };
-    });
-  },
 };
 </script>
 
 <template>
   <div class="container">
+    <!-- Riepilogo ordine -->
     <div class="row">
       <div class="col-sm-12 col-md-12 col-xl-12">
         <h1>Riepilogo ordine</h1>
-
         <div class="container">
           <div class="row">
             <div class="col-sm-12 col-md-12 col-xl-12">
-              <table class="table table-stripied">
+              <table class="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">Nome prodotto</th>
@@ -195,14 +196,10 @@ export default {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(item, index) in this.store.cartItems">
-                    <td>
-                      {{ item.name }}
-                    </td>
+                  <tr v-for="(item, index) in store.cartItems" :key="index">
+                    <td>{{ item.name }}</td>
                     <td>{{ item.price }}€</td>
-                    <td>
-                      {{ item.quantity }}
-                    </td>
+                    <td>{{ item.quantity }}</td>
                   </tr>
                   <tr>
                     <td>Totale</td>
@@ -216,68 +213,39 @@ export default {
         </div>
       </div>
     </div>
+    <!-- Form dati cliente -->
     <div class="row">
       <div class="col-sm-12 col-md-12 col-xl-12 text-center">
-        <!-- form dati cliente -->
-        <form @submit.prevent="chiamata" method="POST">
+        <form ref="customerForm" @submit.prevent="submitCustomerData">
           <div class="mb-3">
             <label for="customer_name" class="form-label">Nome</label>
-            <input
-              v-model="orderData.customer_name"
-              type="text"
-              class="form-control"
-              id="customer_name"
-            />
+            <input v-model="orderData.customer_name" type="text" class="form-control" id="customer_name" />
           </div>
-
           <div class="mb-3">
             <label for="customer_surname" class="form-label">Cognome</label>
-            <input
-              v-model="orderData.customer_surname"
-              type="text"
-              class="form-control"
-              id="customer_surname"
-            />
+            <input v-model="orderData.customer_lastName" type="text" class="form-control" id="customer_surname" />
           </div>
-
           <div class="mb-3">
-            <label for="customer_address" class="form-label"
-              >Indirizzo del cliente</label
-            >
-            <input
-              v-model="orderData.customer_address"
-              type="text"
-              class="form-control"
-              id="customer_address"
-            />
+            <label for="customer_address" class="form-label">Indirizzo del cliente</label>
+            <input v-model="orderData.customer_adress" type="text" class="form-control" id="customer_address" />
           </div>
-
           <div class="mb-3">
-            <label for="customer_number" class="form-label"
-              >Telefono del cliente</label
-            >
-            <input
-              v-model="orderData.customer_number"
-              type="text"
-              class="form-control"
-              id="customer_number"
-            />
+            <label for="customer_number" class="form-label">Telefono del cliente</label>
+            <input v-model="orderData.customer_phone_number" type="tel" class="form-control" id="customer_number" />
           </div>
-
-          <button id="invio" type="submit" class="btn btn-primary">
-            INVIA
-          </button>
+          <button id="invio" type="submit" class="btn btn-primary">INVIA</button>
         </form>
 
-        <h1>Inserisci i dati di pagamento</h1>
-
-        <!-- form dati carta -->
-        <div id="dropin-container" class="mt-5"></div>
-        <div>{{ invio_dati }}</div>
-        <button @click="prova"></button>
+        <!-- Inserisci i dati di pagamento -->
+        <div v-if="showPaymentSection">
+          <h1>Inserisci i dati di pagamento</h1>
+          <div id="dropin-container" class="mt-5"></div>
+          <button @click="submitPayment" class="btn btn-primary">PAGA</button>
+        </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <style scoped lang="scss"></style>
