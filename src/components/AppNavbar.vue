@@ -70,6 +70,11 @@ export default {
       }
     },
 
+    // elimina piatto dal carrello
+    deleteDish(index) {
+      this.store.cartItems.splice(index, 1);
+    },
+
     changeCheck() {
       this.store.refToCheck = !this.store.refToCheck;
     }
@@ -209,6 +214,10 @@ export default {
                       <!-- aggiungi -->
                       <button class="increase-button m-2" @click="incrementQuantity(index)">
                         +
+                      </button>
+                      <!-- elimina dal carrello -->
+                      <button class="increase-button m-2" @click="deleteDish(index)">
+                        X
                       </button>
                     </div>
                   </div>
