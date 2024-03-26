@@ -1,13 +1,30 @@
 <script>
+
 import { store } from '../store';
+
 export default {
+
   name: 'AppNabar',
+
   data() {
     return {
       store,
     };
   },
+
+  created() {
+
+    // al refresh della pagina il carrello mantiene la memoria
+    const cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    if (cartItems) {
+      this.store.cartItems = cartItems;
+    }
+
+  },
+
   methods: {
+
+    // aggiunta del prodotto al carrelo
     addToCart(product) {
       const cartProduct = this.store.cartItems.find(
         item => item.id === product.id
@@ -22,8 +39,9 @@ export default {
         product.isAdded = true;
       }
 
-      localStorage.setItem('cartItems', JSON.stringify(this.store.cartItems));
     },
+
+    // rimozione del prodotto dal carrello
     removeFromCart(productId) {
       const index = this.store.cartItems.findIndex(
         item => item.id === productId
@@ -38,29 +56,36 @@ export default {
         }
       }
 
-      localStorage.setItem('cartItems', JSON.stringify(this.store.cartItems));
     },
+
+    // incrementa quantità
     incrementQuantity(index) {
       this.store.cartItems[index].quantity++;
-      localStorage.setItem('cartItems', JSON.stringify(this.store.cartItems));
     },
+
+    // decremeneta quantità
     decrementQuantity(index) {
       if (this.store.cartItems[index].quantity > 1) {
         this.store.cartItems[index].quantity--;
-        localStorage.setItem('cartItems', JSON.stringify(this.store.cartItems));
       }
     },
-    changeCheck(){
+
+    changeCheck() {
       this.store.refToCheck = !this.store.refToCheck;
     }
   },
+
   computed: {
+
+    // somma quantità
     totalCartItems() {
       return this.store.cartItems.reduce(
         (total, item) => total + item.quantity,
         0
       );
     },
+
+    // somma dei prezzi
     totalOrderPrice() {
       return index =>
         (
@@ -68,178 +93,167 @@ export default {
           this.store.cartItems[index].quantity
         ).toFixed(2);
     },
+
   },
+
 };
+
 </script>
 
 <template>
+
   <body>
+
     <!-- Barra di navigazione principale -->
-    <nav
-      class="navbar navbar-expand-lg bg-yellow navBar d-flex justify-content-between"
-    >
+    <nav class="navbar navbar-expand-lg bg-yellow navBar d-flex justify-content-between">
+
       <!-- Logo e nome dell'applicazione, cliccabile per tornare alla homepage -->
       <a class="navbar-brand d-flex" href="/">
-        <img
-          class="nav_img"
-          src="https://dhhvideos.s3.eu-central-1.amazonaws.com/Delivery-Hero-Comet.png"
-          alt="Logo DeliveBoo"
-        />
-        <h2 class="img_title"><strong>DeliveBoo</strong></h2>
+        <img class="nav_img" src="https://dhhvideos.s3.eu-central-1.amazonaws.com/Delivery-Hero-Comet.png"
+          alt="Logo DeliveBoo" />
         <!-- Nome dell'applicazione -->
+        <h2 class="img_title"><strong>DeliveBoo</strong></h2>
       </a>
+
       <!-- Bottone per il menu a tendina su dispositivi mobili -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <!-- Elementi del menu di navigazione -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <button
-          class="btn btn-primary"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasRight"
-          aria-controls="offcanvasRight"
-        >
+
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+          aria-controls="offcanvasRight">
           Carrello
         </button>
+
         <ul class="navbar-nav me-0 mb-2 mb-lg-0">
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               Per i ristoratori
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a class="dropdown-item" href="http://localhost:8000/register"
-                  >Registrati</a
-                >
+                <a class="dropdown-item" href="http://localhost:8000/register">Registrati</a>
                 <!-- Link per la registrazione dei ristoratori -->
               </li>
               <li>
-                <a class="dropdown-item" href="http://localhost:8000/login"
-                  >Entra</a
-                >
+                <a class="dropdown-item" href="http://localhost:8000/login">Entra</a>
                 <!-- Link per il login dei ristoratori -->
               </li>
             </ul>
           </li>
         </ul>
+
       </div>
     </nav>
-    <div
-      class="offcanvas offcanvas-end width-custom"
-      tabindex="-1"
-      id="offcanvasRight"
-      aria-labelledby="offcanvasRightLabel"
-    >
+
+    <!-- elementi del menu offcanvas -->
+    <div class="offcanvas offcanvas-end width-custom" tabindex="-1" id="offcanvasRight"
+      aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header">
+
+        <!-- titolo -->
         <h5 id="offcanvasRightLabel">Il tuo carrello</h5>
-        <button
-          type="button"
-          class="btn-close text-reset"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+
+        <!-- bottone per chiudere il menu offcanvas -->
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
       </div>
+
+      <!-- body del menu offcanvas -->
       <div class="offcanvas-body">
         <div class="row">
           <div class="col-12 d-flex">
-            <div
-              class="EmptyCart text-center"
-              v-if="store.cartItems.length === 0"
-            >
+
+            <!-- se il carrello è vuoto -->
+            <div class="EmptyCart text-center" v-if="store.cartItems.length === 0">
               Il carrello è vuoto
             </div>
+
+            <!-- se sono presenti elementi nel carrello -->
             <div v-else>
+
+              <!-- intestazioni -->
               <div class="d-flex">
                 <div class="ProdottoStyle">Prodotto</div>
                 <div class="PrezzoStyle">Prezzo</div>
                 <div class="QuantitaStyle">Quantità</div>
               </div>
+
+              <!-- dettagli del prodotto -->
               <ul class="" v-if="store.cartItems.length > 0">
-                <li
-                  class="d-flex align-items-center"
-                  v-for="(item, index) in store.cartItems"
-                  :key="index"
-                >
+                <li class="d-flex align-items-center" v-for="(item, index) in store.cartItems" :key="index">
                   <div class="d-flex align-items-center liststyle">
+                    <!-- nome prodotto -->
                     <div class="NameStyle">
                       {{ item.name }}
                     </div>
+                    <!-- prezzo prodotto -->
                     <div class="PriceStyle">{{ totalOrderPrice(index) }}€</div>
                   </div>
+                  <!-- quantità -->
                   <div>
                     <div class="ButtonContainer">
+                      <!-- rimuovi -->
+                      <button class="decrease-button m-2" @click="decrementQuantity(index)">
+                        -
+                      </button>
+                      <!-- quantità attuale -->
                       <div class="QuantityStyle">
                         {{ item.quantity }}
                       </div>
-                      <button
-                        class="increase-button m-2"
-                        @click="incrementQuantity(index)"
-                      >
+                      <!-- aggiungi -->
+                      <button class="increase-button m-2" @click="incrementQuantity(index)">
                         +
-                      </button>
-                      <button
-                        class="decrease-button m-2"
-                        @click="decrementQuantity(index)"
-                      >
-                        -
                       </button>
                     </div>
                   </div>
                 </li>
               </ul>
-              <div
-                class="EmptyCart text-center"
-                v-if="store.cartItems.length === 0"
-              >
-                Il carrello è vuoto
-              </div>
+
+              <!-- bottone check-out -->
               <div class="div d-flex justify-content-center">
                 <button class="ProdottoStyle" @click="changeCheck()">CHECKOUT</button>
               </div>
+
             </div>
           </div>
         </div>
       </div>
     </div>
   </body>
+
 </template>
 
 <style lang="scss">
 @import '../styles/general.scss'; //Importazione degli stili generali
+
 .width-custom {
   min-width: 600px;
 }
+
 .navBar {
   background-color: #ffc244;
+
   .nav_img {
     width: 50px;
   }
+
   .img_title {
     color: #d82128;
     display: inline;
     margin: 0;
   }
 }
+
 .modal-backdrop {
   display: none;
 }
+
 .cart-icon {
   position: absolute;
   top: 18px;
