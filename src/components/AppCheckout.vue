@@ -52,8 +52,6 @@ export default {
           return;
         }
         // richiama il metodo onSuccess
-        // Qui invii il payload.nonce al tuo server per processare il pagamento tramite Braintree
-        // console.log("Nonce ottenuto:", payload.nonce);
         this.onSuccess(payload);
 
       });
@@ -149,6 +147,7 @@ export default {
 
   mounted() {
 
+    // metodo che genera un token di validazione e fa apparire il form per i dati della carta
     axios.get("http://127.0.0.1:8000/api/generate").then((res) => {
       let token = null;
       token = res.data.token;
@@ -251,7 +250,7 @@ export default {
         <!-- form dati carta -->
         <div id="dropin-container" class="mt-5"></div>
         <div>{{ invio_dati }}</div>
-        <button @click="prova"></button>
+        <button @click="prova">Paga ora</button>
 
       </div>
     </div>
