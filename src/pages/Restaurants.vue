@@ -51,39 +51,25 @@ export default {
       Ristoranti vicino a te
     </h1>
 
-    <PageRestaurantDetails
-      v-if="ref"
-      :id="idRestaurant"
-      :name="nameRestaurant"
-      :address="addressRestaurant"
-      :logo="getImageUrl(logoRestaurant)"
-    />
+
+
+    <PageRestaurantDetails v-if="ref" :id="idRestaurant" :name="nameRestaurant" :address="addressRestaurant"
+      :logo="getImageUrl(logoRestaurant)" />
 
     <div class="container px-2" v-else>
       <div class="row">
-        <div
-          v-for="restaurant in restaurants"
-          :key="restaurant.id"
-          class="col-sm-12 col-md-4 col-xl-3 px-2 py-3"
-          @click="getLinkId()"
-        >
-          <div
-            class="card_link"
-            @click="
-              getMyRest(
-                restaurant.id,
-                restaurant.name,
-                restaurant.adress,
-                restaurant.logo
-              )
-            "
-          >
+        <div v-for="restaurant in restaurants" :key="restaurant.id" class="col-sm-12 col-md-4 col-xl-3 px-2 py-3"
+          @click="getLinkId()">
+          <div class="card_link" @click="
+      getMyRest(
+        restaurant.id,
+        restaurant.name,
+        restaurant.adress,
+        restaurant.logo
+      )
+      ">
             <div class="container resturant_card">
-              <img
-                class="card-img-top"
-                :src="getImageUrl(restaurant.logo)"
-                :alt="restaurant.name"
-              />
+              <img class="card-img-top" :src="getImageUrl(restaurant.logo)" :alt="restaurant.name" />
               <div class="card-body">
                 <h5 class="madimi-one-regular text-center mt-2">
                   {{ restaurant.name }}
@@ -103,15 +89,18 @@ export default {
   border-radius: 5px;
   box-shadow: 10px 5px 5px rgb(241, 241, 241);
   transition: 100ms;
+
   &:hover {
     box-shadow: 10px 5px 5px rgb(188, 188, 188);
   }
+
   img {
     height: 300px;
     object-fit: contain;
     object-position: center;
   }
 }
+
 .card_link {
   color: black;
   text-decoration: none;
