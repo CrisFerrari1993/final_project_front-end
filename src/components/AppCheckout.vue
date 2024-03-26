@@ -17,12 +17,12 @@ export default {
 
       orderData: {
         customer_name: "Antonio",
-        customer_lastName: "",
-        customer_adress: "",
-        customer_mail_adress: "",
+        customer_lastName: "Laikaufz",
+        customer_adress: "via iraq",
+        customer_mail_adress: "obaoba@billLaden.org",
         restaurant_id: 4,
         customer_number: "",
-        customer_phone_number: "",
+        customer_phone_number: "666666666",
 
         dishes: [
           { id: 2, quantity: 1, name: "Pizza", price: 10 },
