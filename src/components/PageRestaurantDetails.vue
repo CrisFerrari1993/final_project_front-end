@@ -145,16 +145,18 @@ export default {
             <p class="card-text">
               {{ eleDish.description }}
             </p>
-            <h5 class="card-title madimi-one-regular">{{ eleDish.price }} €</h5>
-            <button v-if="!addedToCartMap[eleDish.id]" type="button" class="btn btn-primary"
-              @click="addToCart(eleDish)">
-              Aggiungi al carrello
-            </button>
-            <button v-else type="button" class="btn btn-danger" @click="removeFromCart(eleDish)">
-              Rimuovi dal carrello
-            </button>
+            <div class="d-flex justify-content-around">
+              <h5 class="card-title madimi-one-regular d-flex align-items-center">{{ eleDish.price }} €</h5>
+              <button v-if="!addedToCartMap[eleDish.id]" type="button" class="btn btn-primary"
+                @click="addToCart(eleDish)">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </button>
+              <button v-else type="button" class="btn btn-danger" @click="removeFromCart(eleDish)">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </button>
+            </div>
           </div>
-        </div>
+        </div>-
       </div>
     </div>
   </section>
