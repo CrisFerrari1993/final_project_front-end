@@ -225,9 +225,9 @@ export default {
               </ul>
 
               <!-- bottone check-out -->
-              <div class="div d-flex justify-content-center">
-                <button class="ProdottoStyle" @click="changeCheck()">CHECKOUT</button>
-              </div>
+              <router-link to="/checkout" class="div d-flex justify-content-center">
+                <button class="ProdottoStyle">CHECKOUT</button>
+              </router-link>
 
             </div>
           </div>
