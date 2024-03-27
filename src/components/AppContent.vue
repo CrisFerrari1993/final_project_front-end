@@ -8,11 +8,6 @@
         Ristoranti vicino a te
       </h1>
 
-      <!-- test -->
-
-      <h1>Restaurant menu</h1>
-
-
       <div class="container px-2">
         <div class="row justify-content-center">
           <div v-for="category in categories" :key="category.id" class="col-sm-3 col-md-3 col-xl-2 p-1 p-2" @click="
@@ -36,8 +31,8 @@
         <div class="row">
 
           <div v-for="restaurant in filteredRestaurants" :key="restaurant.id"
-            class="col-sm-12 col-md-4 col-xl-3 px-2 py-3" @click="getMyRest(restaurant)">
-            <router-link to="/restaurantmenu" class="nav-link">
+            class="col-sm-12 col-md-4 col-xl-3 px-2 py-3" @click="getMyRest(restaurant.id)">
+            <router-link :to="{ name: 'details', params: { restaurantId: restaurant.id } }" class="nav-link">
               <div class="card_link">
                 <div class="container resturant_card">
                   <img class="card-img-top" :src="getImageUrl(restaurant.logo)" :alt="restaurant.name" />
@@ -81,14 +76,17 @@ export default {
     getImageUrl(logo) {
       return `http://127.0.0.1:8000/storage/${logo}`;
     },
-    getMyRest(restaurant) {
-      this.idRestaurant = restaurant.id;
-      this.nameRestaurant = restaurant.name;
-      this.addressRestaurant = restaurant.adress;
-      this.logoRestaurant = restaurant.logo;
-      this.ref = !this.ref;
-      console.log('hai cliccato', restaurant.id);
-      console.log(this.ref);
+    getMyRest(restaurantId) {
+      const restaurant = this.restaurants.find(r => r.id === restaurantId);
+      if (restaurant) {
+        this.idRestaurant = restaurant.id;
+        this.nameRestaurant = restaurant.name;
+        this.addressRestaurant = restaurant.address;
+        this.logoRestaurant = restaurant.logo;
+        this.ref = !this.ref;
+        console.log('hai cliccato', restaurantId);
+        console.log(this.ref);
+      }
     },
     fetchCategoriesAndRestaurants() {
       axios
