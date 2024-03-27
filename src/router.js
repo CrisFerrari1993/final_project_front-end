@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import PageHome from './pages/PageHome.vue';
-import OurTeam from './pages/OurTeam.vue';
 import NotFound from './pages/NotFound.vue';
 import Thanks from './pages/Thanks.vue';
 import PageRestaurantDetails from './components/PageRestaurantDetails.vue';
@@ -29,6 +28,11 @@ const router = createRouter({
       path: '/checkout',
       name: 'checkout',
       component: AppCheckout,
+    },
+    {
+      path: '/thanks',
+      name: 'thanks',
+      component: Thanks,
     },
   ],
 });

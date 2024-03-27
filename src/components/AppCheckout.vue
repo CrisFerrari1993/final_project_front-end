@@ -157,7 +157,8 @@ export default {
         if (!response.ok) {
           throw new Error('Errore durante la richiesta.');
         } else {
-          // inserire pagine di ringraziamento
+          // reinderizza alla pagina thanks 
+          this.$router.push({ name: 'thanks' });
         }
 
         const data = await response.json();
@@ -235,9 +236,10 @@ export default {
           </div>
           <div class="mb-3">
             <label for="customer_mail_adress" class="form-label">Indirizzo email</label>
-            <input v-model="orderData.customer_mail_adress" type="text" class="form-control" id="customer_mail_adress" />
+            <input v-model="orderData.customer_mail_adress" type="text" class="form-control"
+              id="customer_mail_adress" />
           </div>
-          
+
           <button id="invio" type="submit" class="btn btn-primary">INVIA</button>
         </form>
 
