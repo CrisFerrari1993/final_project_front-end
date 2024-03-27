@@ -15,7 +15,7 @@ export default {
         customer_adress: "",
         customer_mail_adress: "",
         customer_phone_number: "",
-        restaurant_id: 2,
+        restaurant_id: store.idRestaurant,
       },
       dropInInstance: null,
       showPaymentSection: false,
