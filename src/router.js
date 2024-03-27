@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import PageHome from './pages/PageHome.vue';
 import OurTeam from './pages/OurTeam.vue';
 import NotFound from './pages/NotFound.vue';
+import Thanks from './pages/Thanks.vue';
 import PageRestaurantDetails from './components/PageRestaurantDetails.vue';
 import AppCheckout from './components/AppCheckout.vue';
 
