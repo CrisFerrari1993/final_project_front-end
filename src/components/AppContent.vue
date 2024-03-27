@@ -52,6 +52,7 @@
 <script>
 import axios from 'axios';
 import PageRestaurantDetails from './PageRestaurantDetails.vue';
+import { store } from '../store';
 export default {
   name: 'AppContent',
   components: {
@@ -82,6 +83,7 @@ export default {
         this.logoRestaurant = restaurant.logo;
         this.ref = !this.ref;
         console.log('hai cliccato', restaurantId);
+        store.idRestaurant = restaurantId;
         console.log(this.ref);
       }
     },
