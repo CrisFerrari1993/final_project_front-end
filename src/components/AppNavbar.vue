@@ -110,7 +110,7 @@ export default {
   <body>
 
     <!-- Barra di navigazione principale -->
-    <nav class="navbar navbar-expand-lg bg-yellow navBar d-flex justify-content-between">
+    <nav class="position-fixed w-100 navbar navbar-expand-lg bg-yellow navBar d-flex justify-content-between">
 
       <!-- Logo e nome dell'applicazione, cliccabile per tornare alla homepage -->
       <a class="navbar-brand d-flex" href="/">
@@ -203,22 +203,26 @@ export default {
                   <!-- quantità -->
                   <div>
                     <div class="ButtonContainer">
-                      <!-- rimuovi -->
-                      <button class="decrease-button m-2" @click="decrementQuantity(index)">
-                        -
-                      </button>
+
                       <!-- quantità attuale -->
                       <div class="QuantityStyle">
                         {{ item.quantity }}
                       </div>
-                      <!-- aggiungi -->
-                      <button class="increase-button m-2" @click="incrementQuantity(index)">
-                        +
+                      <!-- rimuovi -->
+                      <button class="decrease-button m-2" @click="incrementQuantity(index)">
+                        <i class="fa-solid fa-plus"></i>
                       </button>
-                      <!-- elimina dal carrello -->
-                      <button class="increase-button m-2" @click="deleteDish(index)">
-                        X
-                      </button>
+                      <div>
+                        <!-- aggiungi -->
+                        <button class="increase-button m-2" @click="decrementQuantity(index)" v-if="this.store.cartItems[index].quantity > 1">
+                          <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <!-- elimina dal carrello -->
+                        <button class="increase-button m-2" @click="deleteDish(index)" v-else>
+                          <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                      </div>
+                     
                     </div>
                   </div>
                 </li>
