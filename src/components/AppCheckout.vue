@@ -157,6 +157,8 @@ export default {
         if (!response.ok) {
           throw new Error('Errore durante la richiesta.');
         } else {
+          // debug
+          console.log("Pagamento riuscito");
           // reinderizza alla pagina thanks 
           this.$router.push({ name: 'thanks' });
         }

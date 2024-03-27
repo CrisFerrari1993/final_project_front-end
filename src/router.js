@@ -35,6 +35,12 @@ const router = createRouter({
       name: 'checkout',
       component: AppCheckout,
     },
+
+    {
+      path: '/thanks',
+      name: 'thanks',
+      component: Thanks,
+    },
   ],
 
 });
