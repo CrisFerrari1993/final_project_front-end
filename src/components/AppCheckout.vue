@@ -182,7 +182,9 @@ export default {
 </script>
 
 <template>
+
   <div class="container">
+
     <!-- Riepilogo ordine -->
     <div class="row">
       <div class="col-sm-12 col-md-12 col-xl-12">
@@ -215,31 +217,38 @@ export default {
           </div>
         </div>
       </div>
+
     </div>
-    <!-- Form dati cliente -->
+
     <div class="row">
+
       <div class="col-sm-12 col-md-12 col-xl-12 text-center">
+
+        <!-- Form dati cliente -->
         <form ref="customerForm" @submit.prevent="submitCustomerData">
           <div class="mb-3">
             <label for="customer_name" class="form-label">Nome</label>
-            <input v-model="orderData.customer_name" type="text" class="form-control" id="customer_name" />
+            <input v-model="orderData.customer_name" type="text" class="form-control" id="customer_name" required />
           </div>
           <div class="mb-3">
             <label for="customer_surname" class="form-label">Cognome</label>
-            <input v-model="orderData.customer_lastName" type="text" class="form-control" id="customer_surname" />
+            <input v-model="orderData.customer_lastName" type="text" class="form-control" id="customer_surname"
+              required />
           </div>
           <div class="mb-3">
             <label for="customer_address" class="form-label">Indirizzo del cliente</label>
-            <input v-model="orderData.customer_adress" type="text" class="form-control" id="customer_address" />
+            <input v-model="orderData.customer_adress" type="text" class="form-control" id="customer_address"
+              required />
           </div>
           <div class="mb-3">
             <label for="customer_number" class="form-label">Telefono del cliente</label>
-            <input v-model="orderData.customer_phone_number" type="tel" class="form-control" id="customer_number" />
+            <input v-model="orderData.customer_phone_number" type="tel" class="form-control" id="customer_number"
+              required />
           </div>
           <div class="mb-3">
             <label for="customer_mail_adress" class="form-label">Indirizzo email</label>
-            <input v-model="orderData.customer_mail_adress" type="text" class="form-control"
-              id="customer_mail_adress" />
+            <input v-model="orderData.customer_mail_adress" type="email" class="form-control" id="customer_mail_adress"
+              required />
           </div>
 
           <button id="invio" type="submit" class="btn btn-primary">INVIA</button>
@@ -251,7 +260,9 @@ export default {
           <div id="dropin-container" class="mt-5"></div>
           <button @click="submitPayment" class="btn btn-primary">PAGA</button>
         </div>
+
       </div>
+
     </div>
   </div>
 
